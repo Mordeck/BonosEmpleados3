@@ -1,0 +1,73 @@
+<!---------------------------------------------- formulario bono ventas ---------------------------------------------->
+<div *ngIf="needViewFormSales" style="padding: 1rem; margin-top: 1rem; background-color: rgba(0, 0, 0, .1);" class="light-dark-border">
+  <h4 style="display: flex; justify-self: center; padding: 1rem;" class="buttonGray"> Ventas del mes </h4>
+
+  <!--meta ventas -->
+  <div style="display: grid; grid-template-columns: 20% 23% 13% 23% 20%;">
+
+    <!--colum 1-->
+    <div></div>
+
+    <!--colum 2-->
+    <mat-form-field>
+      <mat-label>Mes</mat-label>
+      <input type="number" matInput [value]="monthSalesGoal" [(ngModel)]="monthSalesGoal" (ngModelChange)="formatter()">
+      {{formattedMonthSalesGoal}}
+    </mat-form-field>
+
+    <!--colum 3-->
+    <div style="display: flex; justify-content: center">
+      <h2 class="buttonGray" style="padding: 1rem;">
+        Meta de ventas
+      </h2>
+    </div>
+
+    <!--colum 4-->
+    <mat-form-field>
+      <mat-label>Acumulado</mat-label>
+      <input type="number" matInput [value]="cumulatedSalesGoal" [(ngModel)]="cumulatedSalesGoal" (ngModelChange)="formatter()">
+      {{formattedCumulatedSalesGoal}}
+    </mat-form-field>
+
+    <!--colum 5-->
+    <div></div>
+
+  </div><!-- ends grid-->
+  <!--ventas logradas -->
+  <div style="display: grid; grid-template-columns: 20% 23% 13% 23% 20%;">
+
+    <!--colum 1-->
+    <div></div>
+
+    <!--colum 2-->
+    <mat-form-field>
+      <mat-label>Mes</mat-label>
+      <input type="number" matInput [value]="monthSales" [(ngModel)]="monthSales" (ngModelChange)="formatter()">
+      {{formattedMonthSales}}
+    </mat-form-field>
+
+    <!--colum 3-->
+    <div style="display: flex; justify-content: center">
+      <h2 class="buttonGray" style="padding: 1rem;">
+        Venta lograda
+      </h2>
+    </div>
+
+    <!--colum 4-->
+    <mat-form-field>
+      <mat-label>Acumulado</mat-label>
+      <input type="number" matInput [value]="cumulatedSales" [(ngModel)]="cumulatedSales" (ngModelChange)="formatter()" disabled style="color: black;">
+      {{formattedCumulatedSales}}
+    </mat-form-field>
+
+    <!--colum 5-->
+    <div></div>
+
+  </div><!-- ends grid-->
+
+  <div style="display: flex; justify-content: center;">
+    <button (click)="saveSales()" mat-button style="background-color: chocolate; color: white;"
+      class="light-dark-border">Guardar ventas</button>
+  </div>
+
+</div>

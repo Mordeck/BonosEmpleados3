@@ -1,0 +1,32 @@
+<div>
+  <h2 class="bonoColor" style="padding: 1rem;">
+    Calificación
+    <div class="subBonoColor light-dark-border" style="padding: .5rem;">
+      {{marks?.description || 'DescripError'}}
+    </div>
+  </h2>
+  <div style="padding: 1rem;">
+    <table  class="light-dark-border">
+      <thead>
+        <tr>
+          <th class="bonoHead">ID</th>
+          <th class="bonoHead">Mes evaluado</th>
+          <th class="bonoHead">Concluido en</th>
+          <th class="bonoHead" *ngIf="marks?.typeCriteria !== 2">Calificación</th>
+          <th class="bonoHead" *ngIf="marks?.typeCriteria == 2">Calificación (Promedio)</th>
+          <th class="bonoHead" >Evaluado </th>
+          <th class="bonoHead">Evaluador </th>
+        </tr>
+      </thead>
+      <tbody>
+        <td>  {{marks?.evalId}}</td>
+        <td>  {{marks?.monthToEvaluate}}</td>
+        <td>  {{marks?.finishDate.split('T')[0]}}</td>
+        <td *ngIf="marks?.typeCriteria !== 2">  {{marks?.weighting}}</td>
+        <td *ngIf="marks?.typeCriteria == 2">  {{marks?.resultValue}}</td>
+        <td>  {{marks?.evaluado }}</td>
+        <td>  {{marks?.evaluador}}</td>
+      </tbody>
+      </table>
+  </div>
+</div>

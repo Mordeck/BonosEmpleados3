@@ -1,0 +1,21 @@
+<div style="padding: 1rem;">
+  <h1 class="bonoColor" style="padding: 1rem;">Editando criterio</h1>
+
+  <div>
+    <mat-form-field style="width: 100%;">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput [(ngModel)]="description"></textarea>
+    </mat-form-field>
+  </div>
+
+    <mat-form-field [@fadeInOut]>
+      <mat-label>Ponderación</mat-label>
+      <input matInput [(ngModel)]="weight" type="number" min="0" max="10" />
+    </mat-form-field>
+
+<div style="display: flex; align-items: center; justify-content: center;">
+
+  <button mat-button style="margin-top: 1rem;" (click)="guardarCriterio()">Guardar</button>
+</div>
+
+</div>

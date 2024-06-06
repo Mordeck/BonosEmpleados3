@@ -1,0 +1,70 @@
+<div style="padding: 1rem;">
+  <div style="margin-left: auto;">
+    <h1 class="bonoColor" style="margin-left: auto; padding: 1rem;"> Editando el usuario</h1>
+  </div>
+
+  <div style="padding:1rem" class="">
+
+    <div class="light-dark-border" style="padding: 1rem;">
+
+      <div class="bonoColor" style="padding: .2rem;">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Nombre de usuario</mat-label>
+        <input [(ngModel)]="tempUserName" matInput #userName >
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Número de empleado</mat-label>
+      <input [(ngModel)]="tempNumEmp"  matInput #numEmp type="number" max="9999">
+    </mat-form-field>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Departamento</mat-label>
+        <mat-select [(ngModel)]="userDepartment"  matInput #department   (selectionChange)="depChange()">
+          <mat-option value="{{dep.departmentID}}" *ngFor="let dep of departmentsList">{{ dep.departName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Puesto</mat-label>
+        <mat-select [(ngModel)]="userPosition" matInput #positions>
+          <mat-option value="{{pos.positionID}}" *ngFor="let pos of positionsList">{{ pos.posName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Tipo usuario</mat-label>
+      <mat-select [(ngModel)]="typeSelected" #typeSelector >
+        <mat-option value="{{role.name}}" *ngFor="let role of roles">{{ role.aName }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+    <div class="light-dark-border" style="margin-top: .8rem;">
+      <div style="padding: .2rem !important;" class="bonoColor"><mat-icon>key</mat-icon></div>
+      <mat-form-field>
+        <mat-label>Contraseña</mat-label>
+        <input matInput #pass type="password" [(ngModel)]="tempPass" >
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>Confirmar</mat-label>
+        <input matInput [matTooltip]="'Coloca nuevamente la contraseña'" #confPass type="password"
+          [(ngModel)]="tempPassC" >
+      </mat-form-field>
+    </div>
+
+    <!------------------------------  boton para guardar un nuevo usuario------------------------------------------>
+    <div style="display: flex; align-items: center;justify-content: center; margin: 1rem;" >
+      <button mat-button class="bonoColor" (click)="updateUser()">Guardar</button>
+    </div>
+
+
+  </div>
+</div>
+

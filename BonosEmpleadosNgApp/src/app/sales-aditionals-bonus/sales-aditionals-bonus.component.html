@@ -1,0 +1,25 @@
+   <!-----------------------------------------------------  BONOS ADICIONALES (basados en VENTAS)  --------------------------------------------------------->
+   <div *ngIf="salesBonus?.length >  0" id="aditionalsSales" style="margin-top: 1rem;">
+
+    <h2 class="buttonking" style="padding: 1rem;">Bonos adicionales (Ventas)</h2>
+    <div *ngFor="let vta of salesBonus"
+      style="display: grid; grid-template-columns: 20% 20% 20% 20% 20%;">
+      <div><span class="buttonking" style="padding: .5rem;">Criterio: </span> <div style="padding: .5rem;"> {{vta.description}}</div> </div>
+      <div><span class="buttonking" style="padding: .5rem;">Tienda/Global: </span> <div style="padding: .5rem;"> {{vta.typeSales}}</div> </div>
+      <div><span class="buttonking" style="padding: .5rem;">Procentaje: </span> <div style="padding: .5rem;"> {{vta.percentage}}</div> </div>
+      <div>
+        <div>
+          <span class="buttonking" style="padding: .5rem;">Autorizado</span>
+          <div>
+            <mat-radio-group aria-label="Autorización" [(ngModel)]="auth">
+              <mat-radio-button value="si">Si</mat-radio-button>
+              <mat-radio-button value="no">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+      <div ><span class="buttonking" style="padding: .5rem;">Importe ( (ventas * procentaje) / 100 )</span> <span>  <div style="padding: .5rem;">{{vta.profit}}</div> </span></div>
+    </div>
+  </div>
+
+

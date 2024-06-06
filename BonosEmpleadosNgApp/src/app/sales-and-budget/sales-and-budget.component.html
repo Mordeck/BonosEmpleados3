@@ -1,0 +1,128 @@
+<div style="padding: 1rem; display: flex; justify-content: center; align-items: center;" *ngIf="documentData">
+
+  <div style="display: grid; grid-template-columns: 50% 50%;"><!--ventas y presupuesto-->
+
+    <div style="margin: .5rem" *ngIf="documentData?.haveToShowSales == 'si'"><!-- starts ventas-->
+      <div style="display: grid; grid-template-columns: 33.3% 33.3% 33.3% ;">
+        <span></span>
+        <span class="light-dark-border"
+          style="padding: .5rem; background-color: #934f5c; color: whitesmoke;">Ventas</span>
+        <span></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 33.3% 33.3% 33.3% ;">
+        <div class="light-dark-border" style="padding: 1rem; background-color: whitesmoke;">
+          <b>Mes</b>
+          <div style="font-size: large; color: blue;">{{monthGoalSales}}</div>
+        </div>
+        <div class="light-dark-border" style="padding: 1rem; background-color: #63313b; color: rosybrown;">
+          <b style="font-size: large; display: flex; justify-content: center;">Meta de Ventas</b>
+        </div>
+        <div class="light-dark-border" style="padding: 1rem; background-color: whitesmoke;">
+          <b>Acumulado</b>
+          <div style="font-size: large; color: blue;">{{totalCumulatedGoal}}</div>
+        </div>
+        <div class="light-dark-border" style="padding: 1rem; background-color: whitesmoke;">
+          <b>Mes</b>
+          <div style="font-size: large; color: blue;">{{monthTotalSales}}</div>
+        </div>
+        <div class="light-dark-border" style="padding: 1rem; background-color: #63313b; color: rosybrown;">
+          <b style="font-size: large; display: flex; justify-content: center;"> Venta Lograda </b>
+        </div>
+        <div class="light-dark-border" style="padding: 1rem; background-color: whitesmoke;">
+          <b>Acumulado</b>
+          <div style="font-size: large; color: blue;">{{totalCumullated}}</div>
+        </div>
+      </div>
+
+      <button mat-button class="light-dark-border" style="margin: .5rem; background-color: #934f5c; color: whitesmoke;"  (click)="toggleSalesDetail()">Detalle</button>
+
+      <!--  detalle de ventas -->
+      <div style="padding: 1rem;" class="light-dark-border" *ngIf="visibleSalesDetail" [@fadeInOut]>
+        <table>
+          <thead>
+            <tr>
+              <th style="padding: .5rem; background-color: #934f5c; color: whitesmoke;">Puesto</th>
+              <th style="padding: .5rem; background-color: #934f5c; color: whitesmoke;">Venta Meta</th>
+              <th style="padding: .5rem; background-color: #934f5c; color: whitesmoke;">Venta Mensual</th>
+              <th style="padding: .5rem; background-color: #934f5c; color: whitesmoke;">Meta Accumulado</th>
+              <th style="padding: .5rem; background-color: #934f5c; color: whitesmoke;">Accumulado Real</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of salesDetail">
+              <td>{{row.posName || salesDetail.length }}</td>
+              <td> <span style="float: right;"> {{row.monthGoal}} </span></td>
+              <td> <span style="float: right;"> {{row.monthAchieve}} </span></td>
+              <td> <span style="float: right;"> {{row.accumulatedGoal}} </span></td>
+              <td> <span style="float: right;"> {{row.accumulatedAchieve}} </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!--end ventas-->
+
+    <div style="margin: .5rem" *ngIf="documentData?.haveToShowExpens == 'si' "><!--start  gastos-->
+      <div style="display: grid; grid-template-columns: 33.3% 33.3% 33.3% ;">
+        <span></span>
+        <span class="light-dark-border"
+          style="padding: .5rem; background-color: #4f6893; color: whitesmoke;">Presupuesto de Gastos</span>
+        <span></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 33.3% 33.3% 33.3% ;">
+        <div class="light-dark-border" style="padding: 1rem; background-color: whitesmoke;">
+          <b>Mes</b>
+          <div style="font-size: large; color: blue;">{{monthGoalExpens}}</div>
+        </div>
+        <div class="light-dark-border" style="padding: 1rem; background-color: #314663; color: #8fa3bc;">
+          <b style="font-size: large; display: flex; justify-content: center;">Meta de gastos</b>
+        </div>
+        <div class="light-dark-border" style="padding: 1rem; background-color: whitesmoke;">
+          <b>Acumulado</b>
+          <div style="font-size: large; color: blue;">{{totalCumulatedGoalExpens}}</div>
+        </div>
+        <div class="light-dark-border" style="padding: 1rem; background-color: whitesmoke;">
+          <b>Mes</b>
+          <div style="font-size: large; color: blue;">{{monthTotalExpens}}</div>
+        </div>
+        <div class="light-dark-border" style="padding: 1rem; background-color: #314663; color: #8fa3bc;">
+          <b style="font-size: large; display: flex; justify-content: center;"> Gasto real </b>
+        </div>
+        <div class="light-dark-border" style="padding: 1rem; background-color: whitesmoke;">
+          <b>Acumulado</b>
+          <div style="font-size: large; color: blue;">{{totalCumullatedExpens}}</div>
+        </div>
+      </div>
+
+      <button mat-button class="light-dark-border"  style="margin: .5rem; background-color: #4f6893; color: whitesmoke;" (click)="toggleExpensDetail()">Detalle</button>
+
+      <!--  detalle de gastos -->
+      <div style="padding: 1rem;" class="light-dark-border" *ngIf="visibleExpensDetail" [@fadeInOut]>
+        <table>
+          <thead>
+            <tr>
+              <th style="padding: .5rem; background-color: #4f6893; color: whitesmoke;">Puesto</th>
+              <th style="padding: .5rem; background-color: #4f6893; color: whitesmoke;">Gasto Meta</th>
+              <th style="padding: .5rem; background-color: #4f6893; color: whitesmoke;">Gasto Mensual</th>
+              <th style="padding: .5rem; background-color: #4f6893; color: whitesmoke;">Meta Accumulado</th>
+              <th style="padding: .5rem; background-color: #4f6893; color: whitesmoke;">Accumulado Real</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of expensDetail">
+              <td>{{row.posName || salesDetail.length }}</td>
+              <td> <span style="float: right;"> {{row.monthGoal}} </span></td>
+              <td> <span style="float: right;"> {{row.monthAchieve}} </span></td>
+              <td> <span style="float: right;"> {{row.accumulatedGoal}} </span></td>
+              <td> <span style="float: right;"> {{row.accumulatedAchieve}} </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!--end presupuesto-->
+
+  </div>
+
+
+</div><!--end component-->

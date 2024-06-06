@@ -1,0 +1,63 @@
+<!-----------------------------------------------------  BONOS ADICIONALES (basados en Criterio simple)  --------------------------------------------------------->
+
+<div id="aditional" *ngIf="aditionals?.length >  0" style="padding: 1rem;" class="light-dark-border">
+  <h2 class="buttonGray" style="padding: 1rem;">Bonos adicionales (Criterio simple) - Actualización</h2>
+  <div *ngFor="let adBono of aditionals" style="display: grid; grid-template-columns: 63% 13% 13% 10%; background-color: rgba(255,255,255, .4); padding: .5rem;">
+
+    <div><span class="buttonGray" style="padding: .5rem; font-size: large;">Descripción</span>
+      <div style="padding: .5rem; font-size: large" >{{adBono.adDescription}}</div>
+    </div>
+
+    <div><span class="buttonGray" style="padding: .5rem;">Autorización</span>
+      <div>
+        <mat-radio-group [attr.aria-label]=" 'auth_'+ adBono.adBonoId"
+            style="padding: .5rem;"
+            [(ngModel)]="authAdBoCr[adBono.adBonoId]"
+            (change)="changes(authAdBoCr[adBono.adBonoId])">
+          <mat-radio-button value="si">Si</mat-radio-button>
+          <mat-radio-button value="no">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+
+    <div>
+      <span class="buttonGray" style="padding: .5rem;">Estado de la autorización</span>
+      <div *ngIf="adBono?.evaluation?.auth.trim() == 'si'" style="padding: .5rem; font-size: large; background-color: rgba(0,255,0,.2);">Autorizado</div>
+      <div *ngIf="adBono?.evaluation?.auth.trim() == 'no'" style="padding: .5rem; font-size: large; background-color: rgba(255,0,0,.2);;">No autorizado</div>
+      <div *ngIf="!adBono?.evaluation?.auth" style="padding: .5rem; font-size: large; background-color: rgba(255,0,0,.2);;">Pendiente</div>
+    </div>
+
+    <div>
+      <span class="buttonGray" style="padding: .5rem;">Importe</span>
+      <div style="padding: .5rem; font-size: large;">${{adBono.monetaryAmount}}</div>
+    </div>
+
+  </div>
+
+  <div style="display: flex; justify-content: center;">
+    <button (click)="saveABCriteria()" mat-button style="background-color: chocolate; color: white;" class="light-dark-border">Guardar</button>
+  </div>
+</div>
+
+<!-- los bonos adicionales-->
+<div id="aditionalSaved" *ngIf="false" style="padding: 1rem;" class="light-dark-border">
+  <h2 class="buttonGray" style="padding: 1rem;">Bonos adicionales (Criterio simple) - Guardados</h2>
+  <div *ngFor="let adBono of aditionalsSaved" style="display: grid; grid-template-columns: 50% 50%; background-color: rgba(255,255,255, .4);">
+
+    <div><span class="buttonGray" style="padding: .5rem; font-size: large;">Descripción</span>
+      <div style="padding: .5rem; font-size: large" >{{adBono.description}}</div>
+    </div>
+
+    <div><span class="buttonGray" style="padding: .5rem;">Autorización</span>
+      <div style="font-size: large; padding: .5rem;">
+        {{adBono.auth}}
+      </div>
+    </div>
+
+  </div>
+
+  <div style="display: flex; justify-content: center;">
+    <button (click)="saveABCriteria()" mat-button style="background-color: chocolate; color: white;" class="light-dark-border">Guardar</button>
+  </div>
+</div>
+

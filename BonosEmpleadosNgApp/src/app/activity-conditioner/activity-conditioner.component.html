@@ -1,0 +1,62 @@
+<div>
+  <div class="buttonGray" style="padding: 1rem;">
+    <h4>Condiciones</h4>
+  </div>
+
+  <b style="padding: 1rem; color: rgb(115, 77, 253); margin: 1rem;" *ngIf="condAdded"> Este documento ya tiene una condición</b>
+
+  <div style="padding: 1rem;">
+
+    <div class="light-dark-border" style="padding: .5rem;">
+      <p>Describe la condición:</p>
+      <mat-form-field style="padding: .1rem; width: 100%;">
+        <mat-label>Descripción</mat-label>
+        <textarea  [disabled]="condAdded" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" type="text"[(ngModel)]="descrip"></textarea>
+      </mat-form-field>
+      <button mat-button class="buttonGray" style="width: 100%;" (click)="addCondition()" [disabled]="condAdded">Agrega condición</button>
+    </div>
+
+    <div *ngIf="condAdded" class="light-dark-border" style="padding: .5rem; margin-top: .5rem;">
+      <p>Criterios de la condición:</p>
+      <mat-form-field style="padding: .1rem; width: 100%;">
+        <label>Descripción</label>
+        <input type="text" matInput [(ngModel)]="criterio">
+      </mat-form-field>
+
+      <mat-form-field style="padding: .1rem; width: 100%;">
+        <label>Valor porcentual</label>
+        <input type="number" matInput [(ngModel)]="criValue" min="0" max="100">
+      </mat-form-field>
+
+      <button mat-button class="buttonGray" style="width: 100%;" (click)="addCondCriteria()">Agrega criterio</button>
+    </div>
+
+    <div class="light-dark-border" style="margin-top: .5rem;" *ngIf="criterios.length >  0" >
+
+      <h4 class="buttonGray" style="padding: 1rem;">Lista de criterios agregados</h4>
+
+      <div style=" display: flex; justify-content: center;">
+
+        <div *ngFor="let criterio of criterios"   style="display: grid; grid-template-columns:  45% 45%; padding: .5rem;">
+
+          <div class="light-dark-border">
+            <p style="padding: .3rem;" class="buttonGray">Descripción</p>
+            <p style="padding: .3rem;">{{criterio.description}}</p>
+          </div>
+
+          <div class="light-dark-border">
+            <p style="padding: .3rem;" class="buttonGray">Valor porcentual</p>
+            <p style="padding: .3rem;">{{criterio.weighting}}</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="criterios.length ==  0" class="light-dark-border" style="padding: .5rem; margin-top: .5rem; color: rgba(0, 0, 150, .7);">
+      <mat-icon>info</mat-icon> &nbsp;
+      <b >No se han agregado criterios para esta condición </b>
+    </div>
+
+  </div>
+</div>

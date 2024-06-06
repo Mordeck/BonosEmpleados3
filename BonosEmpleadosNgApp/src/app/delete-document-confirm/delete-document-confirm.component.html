@@ -1,0 +1,17 @@
+<div>
+  <h1 style="padding: 1rem;" class="bonoColor">Eliminando el documento</h1>
+  <br>
+  <div style="padding: 1rem;">
+    <div><b>DocumentoId:   </b><span>{{documentData.documentId}}</span> </div>
+    <div><b>Nomenclatura:  </b><span>{{documentData.nomenclature}}</span> </div>
+    <div><b>Mes valuación: </b> <span>{{documentData.evalMonth}}</span> </div>
+    <div><b>Departamento:  </b><span>{{documentData.docDepartment}}</span> </div>
+    <div><b>Puesto:        </b><span>{{documentData.userPosition}}</span> </div>
+  </div>
+  <br>
+
+  <div style="display: flex; align-items: center; justify-content: center;">
+    <button mat-button class="bonoColor" (click)="eliminar()">Sí, Eliminar</button>
+  </div>
+
+</div>

@@ -1,0 +1,134 @@
+<div style="padding: 1rem;" [@fadeInOut]>
+  <div>
+
+      <div id="Generación de bonos" class="light-dark-border buttonNinjalight" *ngIf="userData?.userType == 'admin'">
+        <h4 class="buttonNinja" style="padding: 1rem;">Generacion de bonos</h4>
+        <div style="padding: 1rem;">
+          <div style="font-size: large;">¿Deseas generar las evaluaciones del mes  <b>{{ wordMonth(this.currtMonth )}}</b>?</div>
+          <button class="buttonNinja" mat-button style="margin: 1rem;" (click)="requestEvaluations()" >Generar</button>
+
+        </div>
+        <div class="light-dark-border">
+          <h4 class="buttonNinja" style="padding: 1rem;">Planificador</h4>
+          pendiente ...
+        </div>
+      </div>
+
+
+
+      <!------------------------------------------------ BONOS GENERADOS - TABLE-------------------------------------------------------------------------->
+      <div id="generatedBonos" class="light-dark-border buttonNinjalight"  style="margin-top: 1rem;">
+
+        <h4 class="buttonNinja " style="padding: 1rem;">Bonos generados (Tabla)</h4>
+
+        <!-------------------------------------------- Busqueda ------------------------------->
+        <mat-form-field style="padding-left: 1rem;"  appearance="outline">
+          <input matInput placeholder="Buscar" [(ngModel)]="searchText" (input)="applyFilter()" />
+        </mat-form-field>
+
+
+        <!-------------------------------------------- tabla ------------------------------------>
+
+        <table mat-table [dataSource]="evaluationsDataSource" matSort >
+
+          <!-- Define your columns -->
+          <ng-container matColumnDef="evalId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja" > Evaluación ID </th>
+            <td mat-cell *matCellDef="let element" colspan=""> {{ element.evalId }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja" > Actividad ID </th>
+          <td mat-cell *matCellDef="let element" colspan=""> {{ element.activityId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nomenclature">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja"> Nomenclatura </th>
+          <td mat-cell *matCellDef="let element"> {{ element.nomenclature }} <mat-icon>file</mat-icon> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="docId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja"> Documento ID </th>
+          <td mat-cell *matCellDef="let element"> {{ element.documentId }} <mat-icon>file</mat-icon> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="employeeId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja"> Id Empleado </th>
+          <td mat-cell *matCellDef="let element"> {{ element.employeeId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="employeeName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja"> Id Empleado </th>
+          <td mat-cell *matCellDef="let element"> {{ element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="evaluado">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja"> Evaluado </th>
+          <td mat-cell *matCellDef="let element"> {{ element.posNameEvaluated}} <mat-icon>file</mat-icon> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="evaluador">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja"> Evaluador </th>
+          <td mat-cell *matCellDef="let element"> {{ element.posNameEvalutor }} <mat-icon>file</mat-icon> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actDesc">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja"> Descripción </th>
+          <td mat-cell *matCellDef="let element"> {{ element.description }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="evalMonth">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja"> Mes Evaluación </th>
+          <td mat-cell *matCellDef="let element"> {{ humanReadableDate(element.monthToEvaluate) }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="finishdate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja"> Fecha terminado </th>
+          <td mat-cell *matCellDef="let element" [class]="{ 'Pendiente': element.finishDate == null, 'Completado':element.finishDate != null }">
+            <div style="display: flex; align-items: center; justify-content: center; vertical-align: middle; height: 100%;">
+              {{ element.finishDate == null ? 'Pendiente' : element.finishDate.split('T')[0] }}
+            </div>
+            <div *ngIf="userData?.userType == 'evalu'">
+              <!--evaluar-->
+              <div *ngIf="element.finishDate == null" style="display: flex; justify-content: center;"  [@fadeInOut]><button mat-button style="color: whitesmoke; background-color: rgba(0,0,0,.5);" class="light-dark-border rounded" (click)="clickEvaluar(element)" >Evaluar &nbsp; <i class="fas fa-mouse-pointer"></i></button></div>
+              <!--ver calificaciones-->
+              <div *ngIf="element.finishDate != null" style="display: flex; justify-content: center;" [@fadeInOut]><button mat-button style="color: whitesmoke; background-color: rgba(0,0,0,.5);" class="light-dark-border rounded" (click)="clickVercalif(element)" >Calificación &nbsp; <i class="fas fa-mouse-pointer"></i></button></div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="department">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja"> Departamento </th>
+          <td mat-cell *matCellDef="let element"> {{ element.docDepartment }} </td>
+        </ng-container>
+
+
+        <!------------------------------------------------      acciones para las actividades del documento  ----------------------------->
+        <ng-container matColumnDef="activities">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja"> Actividades </th>
+          <td mat-cell *matCellDef="let element">
+            <div style="padding: 4px;">
+              <!--button (click)="seeActivities(element)" mat-button  class="evalu" style="width: 100%; margin-top: 4px; padding: 1rem;"> <i class="fas fa-eye editColor"></i>&nbsp;Mostrar</button-->
+            </div>
+
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+        <tr mat mat-row *matRowDef="let row; columns: displayedColumns;" (mouseover)="onHover(row)" (click)="clickOnRow(row)" class="hover-effect" title="Realixafr evaluación"></tr>
+
+
+      </table>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell noActivities" colspan="4">No hay bonos para mostrar</td>
+      </tr>
+
+      <mat-paginator  class="buttonNinja" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons ></mat-paginator>
+
+
+    </div>
+
+
+    </div>
+
+  </div>

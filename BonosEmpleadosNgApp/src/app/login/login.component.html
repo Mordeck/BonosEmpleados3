@@ -1,0 +1,38 @@
+<img class="logo" src="assets/img/placencia-logo-gris-largo.png" alt="logo">
+<div *ngIf="show" class="fondo">
+  <h2 class="edge shadow" style="padding: 1rem;"><b> <span style="font-size: 1.5rem;">B</span>ono<span
+        style="font-size: 1.5rem;"> P</span>untuación <span style="font-size: 1.5rem;">P</span>lacencia</b></h2>
+  <h1 class="big"><i>Bienvenido</i></h1>
+  <div class=" container">
+
+    <div class="lux rounded" style="background-color: rgba(0 , 0, 0,.1);">
+
+      <form class="example-form" style="background-color: rgba(0 , 0, 0,.1); position:relative"
+        >
+        <h1 class="edge rounded tCenter shadow">Ingreso</h1>
+        <mat-form-field class="example-full-width shadow rounded">
+          <mat-label>Usuario</mat-label>
+          <input #usernameInput matInput placeholder="Juan">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width shadow rounded " style="margin-top: .5rem;">
+          <mat-label>Contraseña</mat-label>
+          <input #passwordInput type="password" matInput placeholder="Coloca tu contraseña aqui">
+        </mat-form-field>
+
+        <div style="margin: 0 auto; width: 90px;">
+          <button (click)="sendAuth($event)" mat-raised-button color="basic" class="shadow"
+            style="margin-top: 1rem; color:white !important">Ingresar</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<spinner [show]="loading"/>
+
+<footer class="mat-elevation-z2 edge">
+  <p>&copy; 2023 Muebles Placencia</p>
+</footer>

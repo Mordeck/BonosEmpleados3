@@ -1,0 +1,154 @@
+<div>
+
+  <div class="bonoColor">
+    <div style="display:flex; align-items: center; justify-content: center;">
+      <h3 style="padding: .5rem; margin-bottom: 0 ;">Evaluando</h3>
+    </div>
+    <hr>
+    <div style="padding: 1rem; display: grid; grid-template-columns: 300px 300px;;">
+      <div>Evaluando: {{evaluationData[0]?.evaluado || "[Error: 'sin evaluado']"}} </div>
+      <div>Evaluador: {{evaluationData[0]?.evaluador }}</div>
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <div *ngFor="let actvi of actCriterias.activities; let i = index" >
+
+        <div class="subBonoColor">
+          <div>
+            <h4 class="headSubBono" style="padding: .5rem; box-shadow: 0px 0px 32px -17px rgb(0,0,0)">Descripción de la actividad</h4>
+          </div>
+          <p style="padding-left: .5rem; padding-right: .5rem;">{{actvi?.actDecription}}</p>
+          <div class="evalOption">
+
+            <div class="hover-effect insideOption">
+              <div  style="border: 30px solid rgba(0, 0, 0, .2);">
+                <table style="width: 100%;">
+                    <tr>
+                      <th class="headInsideOption" >Descripción del criterio</th>
+                      <th class="headInsideOption" >Ponderación </th>
+                    </tr>
+                  <tbody>
+                    <tr *ngFor="let criteria of actvi.criterias" class=" hover-effect" style="border: 30px solid rgba(0, 0, 0, .2);" (click)="optionChange( 'check-' + criteria.criteriaId) ">
+
+                      <!----------------------------  la descripcion de el criterio   -------------------->
+                      <td>{{ criteria?.critDesc }}</td>
+
+
+                      <td *ngIf="criteria?.criteriaType == 2">
+                        <div style="margin-top: .1rem;">
+
+                            <mat-form-field style="width: 11.8%; margin: .2rem;" appearance="outline" (change)="calcAverage()">
+                              <mat-label> López Mateos </mat-label>
+                              <input matInput type="text" min="0" max="10"  [(ngModel)]="lm">
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 11.8%; margin: .2rem;" appearance="outline" (change)="calcAverage()">
+                              <mat-label> Urban </mat-label>
+                              <input matInput type="text" min="0" max="10"  [(ngModel)]="urb">
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 11.8%; margin: .2rem;" appearance="outline" (change)="calcAverage()">
+                              <mat-label> Querétaro </mat-label>
+                              <input matInput type="text" min="0" max="10"  [(ngModel)]="qro">
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 11.8%; margin: .2rem;" appearance="outline" (change)="calcAverage()">
+                              <mat-label> Patria  </mat-label>
+                              <input matInput type="text" min="0" max="10"  [(ngModel)]="pt">
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 11.8%; margin: .2rem;" appearance="outline" (change)="calcAverage()">
+                              <mat-label> Federalismo </mat-label>
+                              <input matInput type="text" min="0" max="10"  [(ngModel)]="fd">
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 11.8%; margin: .2rem;" appearance="outline" (change)="calcAverage()">
+                              <mat-label> León </mat-label>
+                              <input matInput type="text" min="0" max="10"  [(ngModel)]="ln">
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 11.8%; margin: .2rem;" appearance="outline" (change)="calcAverage()">
+                              <mat-label> Irapuato</mat-label>
+                              <input matInput type="text" min="0" max="10"  [(ngModel)]="ir">
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 11.8%; margin: .2rem;" appearance="outline" (change)="calcAverage()">
+                              <mat-label> Puebla </mat-label>
+                              <input matInput type="text" min="0" max="10"  [(ngModel)]="pue">
+                            </mat-form-field>
+
+                        </div>
+
+                        <div style="display: flex; align-content: center; justify-content: center;">
+                          <h2>  <i> Promedio: {{average}}   </i> </h2>
+                        </div>
+                      </td>
+
+
+                      <!---------------------------- el valor de la ponderacion------------------------------->
+                      <td *ngIf="criteria?.criteriaType != 2"> <!-- se oculta cuando es 2 (promedio de tiendas) pues no es un solo valor -->
+                        <div style="display: grid; grid-template-columns: 50% 50%;">
+                          <span style="display: flex; align-items: center; justify-content: center;" >{{ criteria?.weighting }}</span>
+                          <!--input type="radio" id="{{criteria.criteriaId}}" style="border: none;" [(ngModel)]="seleccion" (click)="optionChange(criteria.criteriaId)"-->
+
+                          <!---------------------------- check opciones -------------------------------------->
+                          <div [@fadeInOut] *ngIf="seleccion == ('check-' + criteria.criteriaId)"  id="check-{{criteria.criteriaId}}" style="height: 14px; width: 14px; border-radius: 50%; background-color: rgb(255, 200, 127); border: 3px solid rgb(185, 130, 57); display: flex; align-items: center; justify-content: center;" title="seleccionar" >
+                            <i class="fas fa-check" style="color: rgb(185, 130, 57);"></i>
+                            <!--div style="display: flex; align-items: center; justify-content: center; vertical-align: middle; height: 70%; width: 70%; border-radius: 50%; background-color: black;"> </div-->
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!--tr class="hover-effect" (click)="optionChange( 'check-0' ) ">
+                      <td >Ninguna de las anteriores</td>
+                      <td>
+                        <div style="display: grid; grid-template-columns: 50% 50%;">
+                          <span style="display: flex; align-items: center; justify-content: center;" >0</span>
+
+
+                          <div [@fadeInOut] *ngIf="seleccion == 'check-0'" id="check-0" style="height: 14px; width: 14px; border-radius: 50%; background-color: rgb(255, 200, 127); border: 3px solid rgb(185, 130, 57); display: flex; align-items: center; justify-content: center;" title="seleccionar">
+                            <i class="fas fa-check" style="color: rgb(185, 130, 57);"></i>
+                          </div>
+                        </div>
+                      </td>
+                    </tr-->
+
+
+                  </tbody>
+                </table>
+
+                <!------------------------------------------------- boton de guardar ------------------------------------------------------------>
+                <div style="display: flex; align-content: center; justify-content: center; margin: .3rem;">
+                  <div colspan="2"> <button mat-button style="border: 1px solid rgba(0,0,0,.3); color: rgb(128, 47, 0);" (click)="guardaBono()"> Guardar </button> </div>
+                </div>
+
+                <!--label for="{{criteria.criteriaId}}">
+                  <div class="headInsideOption">Descripción</div>
+                  {{ criteria?.critDesc }}
+                </label>
+
+                <div>
+                  <div class="headInsideOption">Ponderación: {{criteria?.weighting}}</div>
+                  <input type="radio" id="{{criteria.criteriaId}}">
+                </div!-->
+
+              </div>
+
+            </div>
+            <!-- opción 0 por defecto -->
+            <!--div style="padding: .8rem; display: grid; grid-template-columns: 90% 10%; padding: .2rem;"
+              class="hover-effect light-dark-border">
+              <label for="ninguna">Ninguna de las anteriores</label>
+              <input type="radio" id="ninguna">
+            </div-->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

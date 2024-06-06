@@ -1,0 +1,240 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@fortawesome/fontawesome-free/css/all.css"
+
+.rounded2
+  border-radius: .5rem
+
+$mpGray: rgb(255,255,255)
+
+.example-form
+  min-width: 150px
+  max-width: 500px
+  //width: 100%
+  border-radius: .5rem
+  border: 1px solid $mpGray
+  padding: 1rem
+
+.example-full-width
+  width: 100%
+
+
+$cream: #ffffff // Define a variable using rgb()
+$light: #8fa5a0
+
+.bonoColor
+  background-color: $light !important
+  color: white !important
+  //margin: .2rem
+
+
+  // Descomponer el color en sus componentes RGB
+$red: red($light)
+$green: green($light)
+$blue: blue($light)
+
+// Ajustar los componentes para inclinar hacia tonos anaranjados
+$red-adjusted: $red + 10 // Aumentar el componente rojo
+$blue-adjusted: $blue - 10 // Reducir el componente azul
+
+// Crear el nuevo color con los componentes ajustados
+$orange-tint: rgb($red-adjusted, $green, $blue-adjusted)
+
+// Ajustar los componentes para inclinar hacia tonos anaranjados
+$red-adjusted2: $red + 40 // Aumentar el componente rojo
+$blue-adjusted2: $blue - 40 // Reducir el componente azul
+
+$red-adjusted3: $red     + 20 // Aumentar el componente rojo
+$green-adjusted3: $green - 20 // Aumentar el componente rojo
+$blue-adjusted3: $blue   - 20 // Reducir el componente azul
+
+// Crear el nuevo color con los componentes ajustados
+$orange-tint2: rgb($red-adjusted2, $green, $blue-adjusted2)
+
+$orange-tint3: rgb($red-adjusted3, $green-adjusted3, $blue-adjusted3)
+
+.subBonoColor
+  background-color: $orange-tint !important
+  color: white !important
+  //margin: .2rem
+  //@extend .light-dark-border
+
+$red:red($orange-tint)
+$green:green($orange-tint)
+$blue:blue($orange-tint)
+
+$headSubBono:rgb( ($red - 20), ($green - 20), ($blue - 20) )
+
+
+.headSubBono
+  background-color: $headSubBono
+  margin: 0
+  padding: 0
+  border-bottom: 1px solid rgba(0, 0, 0, .1)
+
+
+.evalOption
+  background-color: $orange-tint2 !important
+  color: white !important
+  //@extend .rounded
+  //@extend .light-dark-border
+  //padding: 5px
+
+.insideOption
+  background-color: $orange-tint3 !important
+  color: white !important
+
+$red:red($orange-tint3)
+$green:green($orange-tint3)
+$blue:blue($orange-tint3)
+
+$headInsideColor:rgb( ($red - 20), ($green - 20), ($blue - 20) )
+
+.headInsideOption
+  background-color: $headInsideColor
+  margin: 0
+
+
+.fondo
+  background: linear-gradient(#{$cream} , #{$light})
+  height: 100vh
+  width: 100vw
+
+  /*
+    centra un elemento html
+    */
+.container
+  display: flex
+  align-items: center
+  justify-content: center
+  height: 70vh
+
+.edge
+  background-color: $light
+  color: white
+  position: relative
+
+.subtle
+  background-color: lighten($light, 22%)
+
+body
+  background-color: lighten($light, 22%)
+
+
+.rounded
+    border-radius: .5rem
+
+.tCenter
+  text-align: center
+  padding: .5rem
+
+$spread:5px
+$blur:10px
+$blur2:5px
+$cShadow: rgba(0,0,0,.2)
+.shadow
+  box-shadow: 0px 0px $blur $cShadow
+
+$bulb: rgba(255,255,255,.8)
+.lux
+  box-shadow: -5px -5px $blur $spread $bulb,  5px 5px $blur $spread $cShadow
+  //padding: 1rem
+
+.luxSmall
+  box-shadow: -2px -2px ($blur - 5px) $spread $bulb,  2px 2px ($blur - 5px) $spread $cShadow
+  padding: 1rem
+
+.luxSlim
+  box-shadow: -2px -2px ($blur - 10px) ($spread - 3px) $bulb,  2px 2px ($blur - 10px) ($spread - 3px) $cShadow
+  padding: 1rem
+
+.luxInvert
+  box-shadow: -5px -5px 15px 5px rgba(255,255,255,.8),  5px 5px 15px 5px rgba(0,0,0,.2)
+  padding: 1rem
+
+.logo
+  filter: grayscale(1)
+  opacity: .2
+  position: fixed
+  top: 60vh
+  left: 20vw
+  width: 60vw
+
+.big
+  filter: grayscale(1)
+  opacity: .2
+  position: fixed
+  top: 10vh
+  left: 5vw
+  width: 60vw
+  font-size: 4rem
+
+.border
+  border: 1px solid $mpGray
+
+.darkBorder
+  border: 2px solid $light
+
+.hover-effect:hover
+  background-color: #f5f5f5
+  cursor: pointer
+
+.hover-effect:hover
+  background-color: rgba(0,0,0,.2)
+  cursor: pointer
+
+$delColor: rgb(160, 0, 0)
+$evaColor:rgb(0 174 175)
+
+.delete
+  color: $delColor
+
+.delButton
+  @extend .rounded2
+  color:(red !important)
+  border: 1px solid $delColor
+
+.editButton
+  @extend .rounded2
+  color: ($evaColor !important)
+  border: 1px solid $evaColor
+
+
+.editColor
+  color: $evaColor
+
+.light-dark-border
+  border: ( 1px solid rgba(0, 0, 0, .2) !important )
+
+.light-darker-border
+  border: ( 1px solid rgba(0, 0, 0, .4) !important )
+
+
+.bonoHead
+  background-color: $light !important
+  color: white !important
+  padding: .7rem
+
+.colorInfo
+  color: rgb(106, 157, 255)
+
+.buttonGray
+  background-color: #8f9ea5 !important
+  color: white !important
+
+
+.buttonGrayLigth
+  background-color: #cfdde3 !important
+
+.buttonking
+  background-color: #8f90a5 !important
+  color: white !important
+
+.buttonNinja
+  background-color: #a18fa5 !important
+  color: white !important
+
+.buttonNinjalight
+  background-color: #f8f2fa !important
+
+
+

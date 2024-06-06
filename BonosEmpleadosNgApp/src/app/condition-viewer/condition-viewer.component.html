@@ -1,0 +1,73 @@
+<div style="padding: 1rem; color: rgba(255, 255, 255, .8);" class="light-dark-border" *ngIf="conditions?.condition">
+  <h4 style="background-color: #527f7e; color: whitesmoke; padding: 1rem;">Condición (Captura)</h4>
+  <div style="color: black; display: grid; grid-template-columns: 2% 49% 19% 10% 20%; font-size: large; background-color: whitesmoke;">
+    <span class="header">ID</span>
+    <span class="header">Descripción</span>
+    <span class="header">Criterios</span>
+    <span class="header">Importe</span>
+    <span class="header">Registro actual</span>
+
+    <span style="padding: .5rem;">{{conditions?.condition?.conditionId}}</span>
+    <span style="padding: .5rem;">{{conditions?.condition?.description}}</span>
+    <div style="padding: .5rem;">
+      <div *ngFor="let criterio of conditions.criterias" style="font-size: large;">
+        <input type="radio" [name]="'cond-' + conditions.condition.conditionId" id="" [value]="{id:criterio.condCriteriaId, weighting:criterio.weighting}"
+          style="width: 20px; height: 20px;" [(ngModel)]="selectedOption" (change)="optionSelected()">
+        {{criterio.description}}
+        <span style="font-size: large; color: chocolate;">{{criterio?.weighting}}</span>
+      </div>
+    </div>
+    <div style="padding: .5rem; font-size: larger; display: flex; justify-content: center; align-items: center; ">
+      {{bonoDocument?.amounth}} x {{(selectedOption?.weighting/100)}} = {{strImporte}}
+    </div>
+    <div style="display: grid; grid-template-columns: 30% 70%; font-size: medium;">
+
+      <div class="header1 light-dark-border">Id</div>
+      <span class="contrast " style="padding: .2rem; border: 1px solid black;">{{conditionsSaved.conditionId}}</span>
+
+      <div class="header1 light-dark-border">Descripción</div>
+      <span class="contrast " style="padding: .2rem; border: 1px solid black;"> {{conditionsSaved.description}} </span>
+
+      <div class="header1 light-dark-border">Importe</div>
+      <span class="contrast " style="padding: .2rem; border: 1px solid black;"> {{conditionsSaved.finalAmount}} </span>
+
+      <div class="header1 light-dark-border">Fecha</div>
+      <span class="contrast " style="padding: .2rem; border: 1px solid black;"> {{ conditionsSaved.authDate.substr(0,10) }} </span>
+
+      <div class="header1 light-dark-border">Promedio</div>
+      <span class="contrast " style="padding: .2rem; border: 1px solid black;"> {{conditionsSaved.average}} </span>
+
+      <div class="header1 light-dark-border">Autorizado</div>
+      <span class="contrast " style="padding: .2rem; border: 1px solid black;"> {{conditionsSaved.authorized}} </span>
+
+    </div>
+    <div>
+
+    </div>
+
+  </div>
+  <div style="display: flex; justify-content: center; justify-content: center;">
+    <button mat-button (click)="saveCondData()" [disabled]="dataSaved" class="light-dark-border" style="background-color: chocolate;">Autorizar</button>
+  </div>
+</div>
+
+
+<!--div style="padding: 1rem; color: rgba(255, 255, 255, .8);" class="light-dark-border" *ngIf="conditionsSaved">
+  <h4 style="background-color: #527f7e; color: whitesmoke; padding: 1rem;">Condición (Guardado)</h4>
+  <div style="color: black; display: grid; grid-template-columns: 2% 69% 7% 20%; font-size: large;  background-color: whitesmoke;">
+    <span class="header">ID</span>
+    <span class="header">Descripción</span>
+    <span class="header">Porcentaje</span>
+    <span class="header">Importe</span>
+
+    <span style="padding: .5rem;">{{conditions?.condition?.conditionId}}</span>
+    <span style="padding: .5rem;">{{conditions?.condition?.description}}</span>
+    <div style="padding: .5rem; font-size: larger;">
+      {{(conditionsSaved.average / 10) * 100 }}%
+    </div>
+    <div style="padding: .5rem; font-size: larger; display: flex; justify-content: center; align-items: center; ">
+      {{conditionsSaved.finalAmount}}
+    </div>
+  </div>
+
+</div-->

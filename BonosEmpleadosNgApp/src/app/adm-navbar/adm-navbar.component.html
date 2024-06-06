@@ -1,0 +1,7 @@
+<div class="edge shadow" style="padding: 1rem;"><b> <span style="font-size: 1.5rem;">B</span>ono<span
+  style="font-size: 1.5rem;"> P</span>untuación <span style="font-size: 1.5rem;">P</span>lacencia</b><span style="float: right;">{{userData.userName || "NombreDeUsuario" }}[{{userData.userType || "TipoUsuario"}}]</span>
+  <hr>
+<div style="margin: 2px;padding: 5px;">
+  <tab [@contrast]="tabSelected == tab.view ? 'large' : 'small'"  *ngFor="let tab of tabs" [tabData]="tab"></tab>
+</div>
+</div>

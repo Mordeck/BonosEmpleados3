@@ -1,0 +1,121 @@
+<div *ngFor="let criterio of criterios; let i = index">
+
+  <!-------------------- vista criterio con promedios de ventas ------------------->
+  <div *ngIf="criterio?.typeCriteria == 2">
+    <span style="display: grid; grid-template-columns: 25% 25% 25% 25%;">
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>LM:</span> <span style="color: chocolate; font-size: large;">{{prmProd_LM}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>URB:</span> <span style="color: chocolate; font-size: large;">{{prmProd_URB}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>PT:</span> <span style="color: chocolate; font-size: large;">{{prmProd_PT}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>FD:</span> <span style="color: chocolate; font-size: large;">{{prmProd_FD}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>QRO:</span> <span style="color: chocolate; font-size: large;">{{prmProd_QRO}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>LN:</span> <span style="color: chocolate; font-size: large;">{{prmProd_LN}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>IR:</span> <span style="color: chocolate; font-size: large;">{{prmProd_IR}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>PUE:</span> <span style="color: chocolate; font-size: large;">{{prmProd_PUE}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>Total:</span> <span style="color: chocolate; font-size: large;">
+          {{ globalAverage }}
+        </span>
+      </div>
+    </span>
+    <div style="padding: 1rem;">
+      <label for="authForm"  class="buttonGray" >Autorización</label>
+      <form id="authForm" style="margin: 1rem;">
+        <label for="si" name="auth">si
+        </label>
+        <input type="radio" id="si" name="auth" value="si" [(ngModel)]="authInAverageSales" (change)="changeSalesAuth(criterio,activity.evalId)">
+
+        <label for="no">no
+        </label>
+          <input type="radio" id="no" name="auth" value="no" [(ngModel)]="authInAverageSales" (change)="changeSalesAuth(criterio,activity.evalId)">
+      </form>
+    </div>
+    <div style="color: rgba(0, 0, 0, .3);">Promedios Productividad</div>
+  </div>
+
+  <!-------------------- vista criterio con promedios de gastos/presupuesto/inventario ------------------->
+  <div *ngIf="criterio?.typeCriteria == 1006">
+    <span style="display: grid; grid-template-columns: 25% 25% 25% 25%;">
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>LM:</span> <span style="color: chocolate; font-size: large;">{{prmExpens_LM}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>URB:</span> <span style="color: chocolate; font-size: large;">{{prmExpens_URB}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>PT:</span> <span style="color: chocolate; font-size: large;">{{prmExpens_PT}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>FD:</span> <span style="color: chocolate; font-size: large;">{{prmExpens_FD}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>QRO:</span> <span style="color: chocolate; font-size: large;">{{prmExpens_QRO}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>LN:</span> <span style="color: chocolate; font-size: large;">{{prmExpens_LN}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>IR:</span> <span style="color: chocolate; font-size: large;">{{prmExpens_IR}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>PUE:</span> <span style="color: chocolate; font-size: large;">{{prmExpens_PUE}}</span>
+      </div>
+      <div class="light-dark-border" style="display: grid; grid-template-columns: 50% 50%; padding: .2rem;">
+        <span>Total:</span> <span style="color: chocolate; font-size: large;">
+          {{ globalAverageExpenses }}
+        </span>
+      </div>
+    </span>
+
+    <div style="padding: 1rem;">
+      <label for="authForm"  class="buttonGray" >Autorización</label>
+      <form id="authForm" style="margin: 1rem;">
+        <label for="si" name="auth">si
+        </label>
+        <input type="radio" id="si" name="auth" value="si" [(ngModel)]="authInAverageExpens" (change)="changeExpensAuth(criterio,activity.evalId)">
+
+        <label for="no">no
+        </label>
+          <input type="radio" id="no" name="auth" value="no" [(ngModel)]="authInAverageExpens" (change)="changeExpensAuth(criterio,activity.evalId)">
+      </form>
+    </div>
+    <div style="color: rgba(0, 0, 0, .3);">Promedios Inventarios</div>
+  </div>
+
+  <!-------------------- vista criterios simples  ------------------->
+  <div *ngIf="criterio?.typeCriteria != 2 && criterio?.typeCriteria != 1006">
+
+    <form>
+      <label>
+        <input [id]="'Activity-' + activity.activityId + '_Criterio-' + criterio.criteriaId" type="radio" name="gender" value="male"
+        (change)="InputRadioChange({ inputId:'Activity-' + activity.activityId + '_Criterio-' + criterio.criteriaId,
+                                        mark:{ ActivityId:activity.activityId, EvalId:activity.evalId, Criterio:criterio.criteriaId, CriteriaType: criterio.typeCriteria }})" > {{criterio.description}}
+      </label>
+      <br>
+    </form>
+
+    <span style="color: chocolate; font-size: large;">
+      {{criterio?.valor}}
+    </span>
+
+
+
+    <div style="color: rgba(0, 0, 0, .3);">Criterio simple</div>
+  </div>
+
+</div>

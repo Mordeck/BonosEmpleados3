@@ -1,0 +1,51 @@
+<div style="padding: 1rem;margin: 1rem;" *ngIf="deductions?.length > 0">
+  <h4 class="deductionsHead">Deducciones</h4>
+  <div *ngFor="let deduction of deductions; let i = index" style="background-color: whitesmoke;">
+    <div style="display: grid; grid-template-columns: 5% 35% 15% 15% 30%; padding: .5rem;">
+
+      <div class="light-dark-border">
+        <div class="head">ID</div>
+        <div style="padding: .5rem;">{{deduction.docDeductionId}}</div>
+      </div>
+
+      <div class="light-dark-border">
+        <div class="head">Descripción</div>
+        <div style="padding: .5rem; font-size: large;">{{deduction.description}}</div>
+      </div>
+
+      <div class="light-dark-border">
+        <div class="head">Agregar</div>
+        <mat-form-field appearance="outline">
+          <input type="number" name="" id="" matInput (change)="updateTotal(i)" [(ngModel)]="deductionsAmount">
+        </mat-form-field>
+        <div style="font-size: larger;">
+          <span> X </span>
+          <span>${{deduction.monetaryAmount}}</span>
+        </div>
+      </div>
+
+      <div class="light-dark-border">
+        <div class="head">Deducción total</div>
+        <div style="padding: .5rem; font-size: x-large;">${{this.deductions[i].totalAmount}}</div>
+      </div>
+
+      <div class="light-dark-border">
+        <div class="head" >Deducción registrada</div>
+          <div style="display: grid; grid-template-columns: 50% 50%; padding: .5rem;" *ngIf="deduction?.evaluation">
+            <span class="light-dark-border" style="padding: .3rem; font-size: large;">Fecha Registro: </span>
+            <span class="light-dark-border" style="padding: .3rem; font-size: large; color: blue;">{{deduction?.evaluation[0]?.dateAuth.substr(0,10)}}</span>
+            <span class="light-dark-border" style="padding: .3rem; font-size: large;">ID</span>
+            <span class="light-dark-border" style="padding: .3rem; font-size: large; color: blue;">{{deduction?.evaluation[0]?.evalDeductionId}}</span>
+            <span class="light-dark-border" style="padding: .3rem; font-size: large;">Importe</span>
+            <span class="light-dark-border" style="padding: .3rem; font-size: large; color: blue;">{{deduction?.evaluation[0]?.totalAmount}}</span>
+            <span class="light-dark-border" style="padding: .3rem; font-size: large;">Usuario</span>
+            <span class="light-dark-border" style="padding: .3rem; font-size: large; color: blue;">{{deduction?.evaluation[0]?.userAuth}}</span>
+          </div>
+      </div>
+
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <button mat-button (click)="saveDeduction(deduction,i)" class="light-dark-border" style="background-color: chocolate; color: whitesmoke;">Aplicar</button>
+    </div>
+  </div>
+</div>

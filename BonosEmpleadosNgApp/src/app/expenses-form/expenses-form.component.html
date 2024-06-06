@@ -1,0 +1,78 @@
+    <!---------------------------------------------- formulario bono presupuesto ---------------------------------------------->
+    <div *ngIf="needViewFormExpenses" style="padding: 1rem; margin-top: 1rem; " class="light-dark-border">
+      <h4 style="display: flex; justify-self: center; padding: 1rem;" class="buttonNinja">  Gastos del mes </h4>
+
+      <!--meta ventas -->
+      <div style="display: grid; grid-template-columns: 20% 23% 13% 23% 20%;">
+
+        <!--colum 1-->
+        <div></div>
+
+        <!--colum 2-->
+        <mat-form-field>
+          <mat-label>Mes</mat-label>
+          <input type="number" matInput [value]="monthExpendGoal" [(ngModel)]="monthExpendGoal"
+            (ngModelChange)="formatter()">
+          {{formattedMonthExpendGoal}}
+        </mat-form-field>
+
+        <!--colum 3-->
+        <div style="display: flex; justify-content: center">
+          <h2 class="buttonNinja" style="padding: 1rem;">
+            Meta presupuesto
+          </h2>
+        </div>
+
+        <!--colum 4-->
+        <mat-form-field>
+          <mat-label>Acumulado</mat-label>
+          <input type="number" matInput [value]="cumulatedExpendGoal" [(ngModel)]="cumulatedExpendGoal"
+            (ngModelChange)="formatter()">
+          {{formattedCumulatedExpendGoal}}
+        </mat-form-field>
+
+        <!--colum 5-->
+        <div></div>
+
+      </div><!-- ends grid-->
+      <!--ventas logradas -->
+      <div style="display: grid; grid-template-columns: 20% 23% 13% 23% 20%;">
+
+        <!--colum 1-->
+        <div></div>
+
+        <!--colum 2-->
+        <mat-form-field>
+          <mat-label>Mes</mat-label>
+          <input type="number" matInput [value]="monthExpend" [(ngModel)]="monthExpend"
+            (ngModelChange)="formatter()">
+          {{formattedMonthExpend}}
+        </mat-form-field>
+
+        <!--colum 3-->
+        <div style="display: flex; justify-content: center">
+          <h2 class="buttonNinja" style="padding: 1rem;">
+            Gasto real
+          </h2>
+        </div>
+
+        <!--colum 4-->
+        <mat-form-field>
+          <mat-label>Acumulado</mat-label>
+          <input type="number" matInput [value]="cumulatedExpend" [(ngModel)]="cumulatedExpend" disabled
+            (ngModelChange)="formatter()">
+          {{formattedCumulatedExpend}}
+        </mat-form-field>
+
+        <!--colum 5-->
+        <div></div>
+
+      </div><!-- ends grid-->
+
+      <div style="display: flex; justify-content: center;">
+        <button (click)="saveBudget()" mat-button style="background-color: chocolate; color: white;"
+          class="light-dark-border">Guardar gastos</button>
+      </div>
+
+    </div>
+

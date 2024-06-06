@@ -1,0 +1,89 @@
+<div style="padding: 1rem;" [@fadeInOut]>
+  <div class="lux border rounded">
+    <div class="bonoColor">
+      <h2 class="rounded" style="padding: 1rem;">Lista de usuarios
+       <span style="border: 2px solid white; float: right; padding: .2rem;" class="rounded"><mat-icon style="float:right">account_circle</mat-icon><mat-icon>list</mat-icon> </span>
+      </h2>
+    </div>
+
+    <div class="light-dark-border" style="padding: 1rem;">
+      <mat-form-field>
+        <input matInput placeholder="Buscar" [(ngModel)]="searchText" (input)="applyFilter()" />
+      </mat-form-field>
+
+      <div class="luxSmall border" style="float: right; padding: 1px !important;" (click)="newUserForm()">
+        <button mat-button class="border rounded bonoColor">Agregar usuario<mat-icon>add</mat-icon></button>
+      </div>
+
+      <table mat-table [dataSource]="userDataSource" matSort>
+
+        <!-- Define your columns -->
+        <ng-container matColumnDef="numEmp">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"># Empleado</th>
+          <td mat-cell *matCellDef="let element"> {{ element.numEmp }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor">Usuario</th>
+          <td mat-cell *matCellDef="let element"> {{ element.userName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor">Tipo Usuario</th>
+          <td mat-cell *matCellDef="let element">
+            <div [ngClass]="element.type == 'admin' ? 'admin': element.type == 'viewe' ? 'viewe' :  'evalu'">
+              {{ element.type }}
+              <i *ngIf="element.type == 'admin' " class="fas fa-crown"></i> <!-- Crown Icon -->
+              <i *ngIf="element.type == 'viewe'" class="fas fa-eye"></i> <!-- Crown Icon -->
+              <i *ngIf="element.type == 'evalu' " class="fas fa-check-square"></i> <!-- Crown Icon -->
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="department">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor">Departamento</th>
+          <td mat-cell *matCellDef="let element"> {{ element.departName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor">Puesto</th>
+          <td mat-cell *matCellDef="let element"> {{ element.posName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fCreacion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor">Fecha Creación</th>
+          <td mat-cell *matCellDef="let element"> {{ element.creadoEn }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastAccess">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor">Ultimo Acceso</th>
+          <td mat-cell *matCellDef="let element"> {{ element.lastAccess || "No ha ingresado" }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Acciones">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor">Acciones</th>
+          <td mat-cell *matCellDef="let element">
+            <button (click)="openRemoveForm(element)" mat-button class="delIcon" style="margin-left: 7px;"><i
+                class="fas fa-remove" style="color: red;"></i></button>
+            <button (click)="openEditForm(element)" mat-button class="editIcon" style="margin-left: 7px;"><i
+                class="fas fa-edit evalColor"></i></button>
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover-effect" (click)="goToDetail(row)">
+        </tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell noUsers" colspan="4">No hay usuarios para mostrar</td>
+        </tr>
+
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons  class="bonoColor"></mat-paginator>
+    </div>
+  </div>
+
+
+  <!-- new user form container -->
+  <div #form></div>

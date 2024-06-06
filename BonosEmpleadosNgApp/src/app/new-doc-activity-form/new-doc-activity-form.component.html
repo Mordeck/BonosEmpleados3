@@ -1,0 +1,67 @@
+<div style="padding: 1rem;">
+  <div class="bonoColor">
+    <h1 style="padding:1rem; margin-bottom: 0;">Agregando una nueva actividad
+    </h1>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 30% 70%; grid-template-rows: 100%;">
+
+    <mat-form-field style="margin-top: .5rem;">
+      <mat-label>Buscar</mat-label>
+    <input matInput  [(ngModel)]="searchText" (input)="applyFilter()" />
+  </mat-form-field>
+
+  <mat-form-field  style="margin-top: 1rem;width: 100%;" *ngIf="!inserted">
+    <mat-label>Puesto Evaluador</mat-label>
+    <mat-select [(ngModel)]="selectPos">
+      <mat-option [value]="puesto.positionID" *ngFor="let puesto of puestosFiltered ">{{puesto.posName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+<!--section class="example-section">
+  <mat-checkbox class="example-margin" [(ngModel)]="checked">Checked</mat-checkbox>
+  <mat-checkbox class="example-margin" [(ngModel)]="indeterminate">Indeterminate</mat-checkbox>
+</section-->
+
+
+<section *ngIf="docType != '' ">
+  <label class="example-margin">La actividad aplica para:</label>
+  <mat-checkbox class="example-margin" [(ngModel)]="first"> {{docType.split(' y ')[0]}}</mat-checkbox>
+  <mat-checkbox class="example-margin" [(ngModel)]="second">{{docType.split(' y ')[1]}}</mat-checkbox>
+</section>
+
+
+  <mat-form-field  appearance="outline" style="margin-top: 1rem;width: 100%;" *ngIf="!inserted">
+    <mat-label>
+      Descripción
+    </mat-label>
+    <textarea matInput placeholder="Agrega la actividad a evaluar" rows="5" [(ngModel)]="actDescription"></textarea>
+  </mat-form-field>
+
+
+</div>
+
+<div style="padding: 1rem;" *ngIf="inserted">
+  <div style="padding: 1rem; border:1px solid;" class="border">
+    <h4>Descripción</h4>
+    <div>{{actDescription}}</div>
+  </div>
+</div>
+
+
+<div style="display: flex; align-items: center; justify-content: center; margin: 1rem;" *ngIf="!inserted">
+  <button mat-button class="bonoColor" (click)="saveActivity()">Guardar</button>
+</div>
+
+<!-------------------- cirterios de la actividad ------------------------->
+<div style="padding: 1rem;" *ngIf="inserted">
+
+    <mat-form-field  appearance="outline" style="margin-top: 1rem;width: 100%;" *ngIf="inserted">
+      <mat-label>
+        Criterio
+      </mat-label>
+      <textarea matInput placeholder="Agrega un criterio para la actividad" rows="5" [(ngModel)]="actCriterio"></textarea>
+    </mat-form-field>
+</div>

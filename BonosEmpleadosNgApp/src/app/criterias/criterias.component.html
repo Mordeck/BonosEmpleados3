@@ -1,0 +1,73 @@
+<div >
+
+
+  <h2 class="bonoColor" style="padding: 1rem;">Criterios de la actividad
+    <div style="float: right !important">
+      <mat-icon style="float: right !important">list</mat-icon>
+    </div>
+  </h2>
+
+  <div *ngIf="criteriasDataSource!=null" class="light-dark-border" style="padding: 2rem;" [@fadeInOut]>
+
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Buscar" [(ngModel)]="searchText" (input)="applyFilter()" />
+    </mat-form-field>
+
+    <div class="luxSlim border" style="float: right; padding: 1px !important;">
+      <button mat-button class="border rounded bonoColor" (click)="openNewCritForm()">Agregar
+        Criterio<mat-icon>add</mat-icon></button>
+    </div>
+
+    <table mat-table [dataSource]="criteriasDataSource" matSort class="light-dark-border">
+
+      <!-- Define your columns -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Criterio ID </th>
+        <td mat-cell *matCellDef="let element" colspan=""> <span
+            style="display: flex; align-items: center; align-content: center; justify-content: center; font-size: large;">{{
+            element.criteriaId }} </span> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Descripción </th>
+        <td mat-cell *matCellDef="let element" colspan="" style="font-size: large; padding: 2px;"> {{
+          element.description }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Acciones </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button style="color: rgba(0,50,255,.8);" (click)="edit(element)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button mat-button style="color: rgba(255,50,0,.8);"  (click)="remove(element)">
+            <i class="fas fa-remove"></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="weighting">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Ponderación </th>
+        <td mat-cell *matCellDef="let element"><span
+            style="display: flex; align-items: center; align-content: center; justify-content: center; font-size: large;">{{
+            element.typeCriteria != 2 ? element.weighting : 'No aplica' }}</span> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat mat-row *matRowDef="let row; columns: displayedColumns;" class="hover-effect"
+        (contextmenu)="onRightClick(row, $event)"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell noActivities" colspan="4">No hay criterios para la actividad</td>
+      </tr>
+
+    </table>
+  </div>
+  <div *ngIf="criteriasDataSource==null" style="pad: 1rem;padding: 1rem; color: rgb(150, 150, 150);" [@fadeInOut]>
+    <mat-icon>info</mat-icon>
+    <h2 style="">Para mostrar los criterios de evaluación seleciona una actividad</h2>
+  </div>
+  <!-----------------------------------------------------------------------      context menu (menu click derecho) -------------------------------------------------------------------->
+
+</div>
+

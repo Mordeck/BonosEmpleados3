@@ -1,0 +1,81 @@
+<div style="max-height: 90vh; overflow-y: auto;">
+  <h4 class="buttonking" style="padding: 1rem;">Bonos Adicionales</h4>
+  <div style="padding: 1rem;">
+
+    <!-- lista de bonos -->
+    <div>
+      <div *ngFor="let adBono of aditionalsBonus; let i = index">
+
+        <div class="light-dark-border" style="padding: 1rem; width: 35vw;">
+          <span >Bono adicional: #{{ i + 1}}</span>
+          <hr>
+          <div style="display: grid; grid-template-columns: 20% 80%;">
+            <span class="buttonking" style="padding: .5rem;">adBonoId </span>
+            <span class="light-dark-border" style="padding: .5rem; ">{{adBono.adBonoId}}  </span>
+
+            <span class="buttonking" style="padding: .5rem; margin-top: .5rem;">Descripción  </span>
+            <span class="light-dark-border" style="padding: .5rem; margin-top: .5rem;"> {{adBono.description}}  </span>
+
+            <span class="buttonking" style="padding: .5rem; margin-top: .5rem;">Importe </span>
+            <span class="light-dark-border" style="padding: .5rem; margin-top: .5rem;">{{adBono.monetaryAmount}}  </span>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="aditionalsBonus.length  == 0" style="margin: .5rem;" class="colorInfo">
+      <i class="fa fa-info-circle"></i> <span style="margin-left: .5rem ;">Este documento no tiene bonos adicionales
+        agregados</span>
+    </div>
+
+
+    <div class="light-dark-border" style="padding: 1rem; margin-top: 1rem;">
+      <h5 class="buttonking" style="margin-top: .5rem; padding: .5rem;">Agregar un bono adicional</h5>
+      <div style="display: flex; justify-content: center;">
+
+        <mat-form-field>
+          <mat-label>Descripción</mat-label>
+          <textarea [(ngModel)]="description" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"></textarea>
+        </mat-form-field>
+
+
+        <!--mat-form-field style="margin-left: .5rem;">
+          <mat-label>Importe</mat-label>
+          <input type="number" min="0" matInput [(ngModel)]="monetaryAmount">
+        </mat-form-field-->
+
+        <mat-form-field style="margin-left: .5rem;" >
+          <mat-label>Puesto evaluador</mat-label>
+          <mat-select [(ngModel)]="posEvalSelected">
+            <mat-option [value]="position.positionID" *ngFor="let position of positions"  >{{position.posName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field style="margin-left: .5rem;">
+          <mat-label>Tipo</mat-label>
+          <mat-select [(ngModel)]="typeBonoAd">
+            <mat-option [value]="type.name" *ngFor="let type of [ { name :'Ventas', desc:'Bono adicional basado en ventas' },{ name: 'Gastos', desc:'Bonoadicional basado en gastos  y presupuesto' }, { name: 'Criterio', desc:'Bono adicional basado solamente en la descripción' } ]" [matTooltip]="type.desc" >{{type.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="typeBonoAd == 'Ventas' || typeBonoAd == 'Gastos'" style="margin-left: .5rem;" >
+          <mat-label>Porcentaje</mat-label>
+          <input type="number" name="" id="" matInput matTooltip="porcentaje de comisión de las ventas" [(ngModel)]="percentage">
+        </mat-form-field>
+
+      </div>
+
+      <div style="display: flex; justify-content: center; margin: 1rem;">
+        <button [disabled]="inserted" class="buttonking" mat-button (click)="save()">Guardar</button>
+      </div>
+
+
+      <hr>
+      <i style="width: 50%;">descripción del bono y el importe monetario </i>
+    </div>
+
+  </div>
+
+</div>

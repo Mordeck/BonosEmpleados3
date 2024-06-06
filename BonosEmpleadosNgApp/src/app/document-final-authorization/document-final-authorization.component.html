@@ -1,0 +1,72 @@
+<div *ngIf="finalAuth?.length > 0" class="light-dark-border">
+  <h4 class="bonoColor" style="padding: 1rem; font-size: large;">Mostrando resumen del la evaluación</h4>
+  <div style="padding: .5rem; background-color: rgb(153, 165, 150) !important;">
+    <div style="display: flex; justify-content: center;">
+      <h3 style="background-color: #a18fa5 !important; padding: .5rem; color: white; font-size: large;">Bonos adicionales</h3>
+    </div>
+    <div *ngFor="let aditional of evaluationSummary?.aditionals"
+      class="customTable">
+      <span class="head">ID(adBonoId)</span>
+      <span class="head">Descripcion</span>
+      <span class="head">Importe</span>
+      <span class="head">Autorización</span>
+      <span class="head">Usuario</span>
+      <span class="head">Fecha autorización</span>
+      <span class="head">Cantidad</span>
+      <span class="tdata" style="font-size: large;">{{aditional.adBonoId}}</span>
+      <span class="tdata" style="font-size: large;">{{aditional.description}}</span>
+      <span class="tdata" style="font-size: large;">{{aditional.monetaryAmount}}</span>
+      <span class="tdata" style="font-size: large;">{{aditional.auth}}</span>
+      <span class="tdata" style="font-size: large;">{{aditional.userAuth.substr(0,10)}}</span>
+      <span class="tdata" style="font-size: large;">{{aditional.dateAuth}}</span>
+      <span class="tdata" style="font-size: large;">{{aditional.amount}}</span>
+    </div>
+  </div>
+
+  <div style="padding: .5rem; background-color: rgb(153, 165, 150) !important;">
+    <div style="display: flex; justify-content: center;">
+      <h3 style="background-color: #a18fa5 !important; padding: .5rem; color: white; font-size: large;">Deducciones</h3>
+    </div>
+    <div *ngFor="let deduction of evaluationSummary?.deductions"
+      class="customTable">
+      <span class="head">ID</span>
+      <span class="head">Descripcion</span>
+      <span class="head">Importe Total</span>
+      <span class="head">Autorización</span>
+      <span class="head">Usuario</span>
+      <span class="head">Fecha autorización</span>
+      <span class="head">Cantidad</span>
+      <span class="tdata" style="font-size: large;">{{deduction.docDeductionId}}</span>
+      <span class="tdata" style="font-size: large;">{{deduction.description}}</span>
+      <span class="tdata" style="font-size: large;">{{deduction.totalAmount}}</span>
+      <span class="tdata" style="font-size: large;">{{deduction.auth}}</span>
+      <span class="tdata" style="font-size: large;">{{deduction.userAuth.substr(0,10)}}</span>
+      <span class="tdata" style="font-size: large;">{{deduction.dateAuth}}</span>
+      <span class="tdata" style="font-size: large;">{{deduction.amount}}</span>
+    </div>
+  </div>
+
+
+  <div style="padding: .5rem; background-color: rgb(153, 165, 150) !important;">
+    <div style="display: flex; justify-content: center;">
+      <h3 style="background-color: #a18fa5 !important; padding: .5rem; color: white; font-size: large;">Deducciones</h3>
+    </div>
+    <div *ngFor="let deduction of evaluationSummary?.documentAverageData"
+      class="customTable">
+      <span class="head">ID</span>
+      <span class="head">Nomenclatura</span>
+      <span class="head">Promedio</span>
+      <span class="head">Importe</span>
+      <span class="head">Departamento</span>
+      <span class="head">Fecha autorización</span>
+      <span class="head">Autorizador</span>
+      <span class="tdata" style="font-size: large;">{{deduction.documentBonoId}}</span>
+      <span class="tdata" style="font-size: large;">{{deduction.nomenclature}}</span>
+      <span class="tdata" style="font-size: large;">{{deduction.average}}</span>
+      <span class="tdata" style="font-size: large;">{{deduction.amounth}}</span>
+      <span class="tdata" style="font-size: large;">{{deduction.docDepartment.trim()}}</span>
+      <span class="tdata" style="font-size: large;">{{deduction.authDate}}</span>
+      <span class="tdata" style="font-size: large;">{{deduction.userAuth}}</span>
+    </div>
+  </div>
+</div>

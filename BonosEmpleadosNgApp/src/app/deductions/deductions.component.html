@@ -1,0 +1,57 @@
+<h4 class="buttonNinja" style="padding: 1rem;">Deducciones del documento</h4>
+
+
+<div style="display: grid; grid-template-columns: 50% 50%;">
+
+    <div id="formulario" style="padding: 1rem;" class="light-dark-border">
+      <h5 class="buttonNinja" style="padding: .5rem;">Agrega una deducción</h5>
+    <div style="display: flex; justify-content: center; margin-top: .5rem;">
+      <mat-form-field appearance="outline">
+        <mat-label>Descripción</mat-label>
+        <textarea [(ngModel)]="deducDescrip" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1"></textarea>
+      </mat-form-field>
+
+      <mat-form-field style="margin-left: .5rem;" appearance="outline">
+        <mat-label>Importe </mat-label>
+        <input type="number" matInput min="0" placeholder="0" [(ngModel)]="deducAmount">
+      </mat-form-field>
+    </div>
+
+    <div style="display: flex; justify-content: center; margin: 1rem;">
+      <button mat-button class="light-dark-border buttonNinja" (click)="saveDeduction()"> Guardar </button>
+    </div>
+
+    <hr>
+    <p class="colorInfo">
+      <li class="fas fa-info-circle"></li> Agrega la descripción del concepto de deducción y el importe monetario del
+      mismo
+    </p>
+  </div>
+
+
+  <div id=deductionsList class="light-dark-border" style="padding: .5rem; background-color: rgba(0, 0, 0, .2);">
+    <div  *ngIf="deductionsList.length == 0 " style="padding: .2rem; background-color: white  ;" class="light-dark-border rounded">
+      <div class="colorInfo"  style="padding: .5rem;"> <i class="fas fa-info-circle"></i> &nbsp; Este documento no tiene deducciones agregadas</div>
+    </div>
+
+    <div *ngIf="deductionsList.length != 0 ">
+      <div *ngFor="let deduction of deductionsList; let i = index" class="light-dark-border rounded" style="margin: .5rem; background-color: white; box-shadow: 5px 5px 10px -10px black;">
+      <h5 class="buttonNinja" style="padding: .5rem;">
+        <span style="padding: .4rem; background-color: rgba(0, 0, 0, .3);">#{{i + 1}} </span>
+        <span style="padding: .4rem; margin-left: .5rem; background-color: rgba(0, 0, 0, .2);">Deducción ID: {{deduction.docDeductionId}}</span>
+      </h5>
+        <div style="display: grid; grid-template-columns:  50% 50%;">
+
+          <div class="buttonNinja" style="padding: .5rem; margin: .5rem;">Descripción</div>
+          <div class="light-dark-border" style="padding: .5rem; margin: .5rem;">{{deduction.description}}</div>
+
+          <div class="buttonNinja" style="padding: .5rem; margin: .5rem;">Importe</div>
+          <div class="light-dark-border" style="padding: .5rem; margin: .5rem;">{{deduction.monetaryAmount}}&nbsp;$</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

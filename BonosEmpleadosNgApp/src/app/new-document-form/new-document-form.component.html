@@ -1,0 +1,84 @@
+<div style="margin-left: auto; padding: 1rem;">
+  <h1 class="bonoColor" style="margin-left: auto; padding: 1rem;"> <mat-icon>add</mat-icon> Agregando Nuevo Documento
+    <mat-icon style="float:right">description</mat-icon>
+  </h1>
+</div>
+
+<div style="padding:.8rem">
+
+  <div>
+    <mat-form-field style="margin: 1rem;">
+      <mat-label>Nomenclatura</mat-label>
+      <input #nomInput matInput [(ngModel)]="nomenclature">
+    </mat-form-field>
+
+    <mat-form-field style="margin: 1rem;" >
+      <mat-label title="Empleados evaluados por documento">Tipo de bono</mat-label>
+      <mat-select [(ngModel)]="bonoType" (selectionChange)="showSelection()" >
+        <mat-option value="{{type.typeId}}" *ngFor="let type of typesBonos">{{type.description}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div>
+
+
+  </div>
+
+  <mat-form-field style="margin: 1rem;">
+    <mat-label>Fecha Alta</mat-label>
+    <input matInput [(ngModel)]="dateRegister" [disabled]="true">
+  </mat-form-field>
+
+  <mat-form-field style="margin: 1rem;">
+    <mat-label>Departamento del documento</mat-label>
+    <mat-select [(ngModel)]="docDepartment" (selectionChange)="onDepartSelection()">
+      <mat-option [value]="department.departName"
+      *ngFor="let department of departments.data">{{department.departName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div>
+
+    <div>
+
+      <mat-form-field style="margin: 1rem;">
+        <mat-label>Tipo de documento</mat-label>
+        <mat-select [(ngModel)]="docType" matTooltip="Empleados evaluados por documento" (selectionChange)="onDocTypeSelection()">
+          <mat-option value="{{type}}" *ngFor="let type of docTypes">{{type}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field style="margin: 1rem;" *ngIf="docType == 'Dos empleados'">
+        <mat-label>Selecciona dupla</mat-label>
+        <mat-select [(ngModel)]="duplaPositions" (selectionChange)="onDuplaSelection()" (click)="onDuplaClick()" multiple>
+          <mat-option value="{{position.positionID}}" *ngFor="let position of positions.data">{{position.posName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  <div class="light-dark-border rounded"  *ngIf="docType == 'Un empleado'">
+    <mat-radio-group style="width: 40%;" [(ngModel)]="isTodosSelected"
+      title="selecciona un departamento para habilitar">
+      <mat-radio-button value="1" [disabled]="!docDepartment" (change)="selectAllOptions()">Todos los puestos del
+        departamento: {{docDepartment}}</mat-radio-button>
+    </mat-radio-group>
+
+      <mat-form-field style="margin: 1rem;" *ngIf="docType == 'Un empleado'">
+        <mat-label>Puesto a evaluar</mat-label>
+        <mat-select [(ngModel)]="userPosition" multiple (selectionChange)="showPositonSelected()">
+          <mat-option [value]="position" *ngFor="let position of positions.data">
+            {{position.posName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div style="display: flex; align-items: center; justify-content: center; margin: 1rem;">
+    <button mat-button class="bonoColor" (click)="sendNewDocument()">Agregar documento</button>
+  </div>
+
+</div>

@@ -1,0 +1,145 @@
+<div style="padding: 1rem;" *ngIf="visible" [@fadeInOut]>
+  <div class="lux border rounded">
+
+    <h2 class="bonoColor rounded" style="padding: 1rem;"><mat-icon style="float: right;">folder</mat-icon> Lista de documentos activos</h2>
+
+    <!------------------------------------------- busqueda ---------------------------------->
+    <mat-form-field style="margin: 1rem;">
+      <input matInput placeholder="Buscar" [(ngModel)]="searchText" (input)="applyFilter()" />
+    </mat-form-field>
+
+
+    <div class="luxSlim border" style="float: right; padding: 1px !important; margin: 1rem;" (click)="openFormNewDoc()">
+      <button mat-button class="border rounded bonoColor" >Agregar documento<mat-icon>add</mat-icon></button>
+    </div>
+    <table mat-table [dataSource]="documentDataSource" matSort>
+
+      <!-- Define your columns -->
+      <ng-container matColumnDef="documentId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor" > Documento ID </th>
+        <td mat-cell *matCellDef="let element" colspan=""> {{ element.documentId }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nomenclature">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Nomenclatura </th>
+        <td mat-cell *matCellDef="let element"> {{ element.nomenclature }} <mat-icon>file</mat-icon> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="documentType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Tipo </th>
+        <td mat-cell *matCellDef="let element"  [ngClass]="element.description.trim() == 'Bono Productividad'  ? 'prod' : 'inve'">
+          {{ element.description }}
+          <i style="color: orangered;" *ngIf="element.description.trim() == 'Bono Productividad'" class="fas fa-rocket"></i>
+          <i style="color: rgb(157, 0, 255);" *ngIf="element.description.trim() == 'Bono control de inventarios'" class="fas fa-box"></i>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="evalMonth">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Mes Evaluación </th>
+        <td mat-cell *matCellDef="let element"> {{ element.evalMonth }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="completed">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Estado </th>
+        <td mat-cell *matCellDef="let element"> {{ element.completed == 0 ? 'Pendiente' : 'Completado' }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="userRegister">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Usuario Alta </th>
+        <td mat-cell *matCellDef="let element"> {{ element.userRegister }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateRegister">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Fecha Alta </th>
+        <td mat-cell *matCellDef="let element"> {{ element.dateRegister }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="department">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Departamento </th>
+        <td mat-cell *matCellDef="let element"> {{ element.docDepartment }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="position" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Puesto(s) evaluado(s) </th>
+        <td mat-cell *matCellDef="let element" >
+          <div style="display: grid; grid-template-columns: 50% 50%;">
+              <div class="light-dark-border" style=" margin: .2rem; padding: .2rem;" *ngFor="let pos of element.posNames">{{pos.posName}}</div>
+              <!--div  >{{getPositionsNames ( element.multiEmployee ) }}</div-->
+
+                <div *ngIf="element.multiEmployee.trim().length > 0" class="light-dark-border" style=" margin: .2rem; padding: .2rem;">{{element.multiEmployee }}
+                <small>multi</small>
+                </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cantActivities">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Cantidad actividades </th>
+        <td mat-cell *matCellDef="let element"> {{ 0 }} </td>
+      </ng-container>
+
+      <!------------------------------------------------      acciones sobre el documento ----------------------------->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Acciones </th>
+        <td mat-cell *matCellDef="let element">
+
+          <div style="padding: 4px;">
+            <button mat-button  (click)="setTypeDialog('edit')" class="editButton" style="width: 40%; margin-top: 4px;"><i class="fas fa-edit editColor"></i>&nbsp; </button>
+            <button mat-button   (click)="setTypeDialog('delete')" class="delButton" style="width: 40%; margin-left: 4px;margin-top: 4px;"> <mat-icon class="delete">delete</mat-icon></button>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="condition">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonGray"> Condición </th>
+        <td mat-cell *matCellDef="let element" >
+          <button class="light-dark-border buttonGray" mat-button style="height: 100%; width: 100%; padding: .5rem;" (click)="seeCondition(element)">Ver condición</button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="aditionalBonus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonking"> Bonos adicionales </th>
+        <td mat-cell *matCellDef="let element" >
+          <button class="light-dark-border buttonking" mat-button style="height: 100%; width: 100%; padding: .5rem;" (click)="seeAditionalBonus(element)">Ver adicionales</button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="deductions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="buttonNinja"> Deducción </th>
+        <td mat-cell *matCellDef="let element">
+          <button class="light-dark-border buttonNinja" mat-button style="height: 100%; width: 100%; padding: .5rem;" (click)="seeDeductions(element)">Ver deducciones</button>
+        </td>
+      </ng-container>
+
+      <!------------------------------------------------      acciones para las actividades del documento  ----------------------------->
+      <ng-container matColumnDef="activities">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Actividades </th>
+        <td mat-cell *matCellDef="let element">
+          <div style="padding: 4px;">
+            <button (click)="openDialog(element, $event)" mat-button  class="evalu" style="width: 100%; margin-top: 4px; padding: 1rem;"> <i class="fas fa-eye editColor"></i>&nbsp;Mostrar</button>
+          </div>
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="SalesAndBudget">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor"> Bonos (Ventas/Presupuesto) </th>
+        <td mat-cell *matCellDef="let element" style="padding: .5rem;">
+          <button mat-button class="buttonGray">Solicita ventas: {{element.salesId ? 'Si': 'No'}} </button>
+          <button mat-button class="buttonNinja">Solicita gastos: {{element.expensId ? 'Si': 'No'}} </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+      <tr mat mat-row *matRowDef="let row; columns: displayedColumns;" (mouseover)="onHover(row)" (click)="openDialog(row, $event)" class="hover-effect" title="Ver las actividades de este documento"></tr>
+
+    </table>
+
+
+    <mat-paginator  class="bonoColor" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+  </div>
+  <div style="padding: 1rem; background-color: rgba(0,0,0,.1); color: rgb(0 49 165)"> <mat-icon>info</mat-icon> Selecciona una fila para ver las actividades asignadas</div>
+</div>
+
+<!--------------------------------------------     detalle de los documentos --------------------------------->
+<document-detail *ngIf="!visible" />

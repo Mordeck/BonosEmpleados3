@@ -1,0 +1,71 @@
+<div style="margin-left: auto; padding: 1rem;">
+  <h1 class="bonoColor" style="margin-left: auto; padding: 1rem;"> <mat-icon>edit</mat-icon> Editando Documento
+    <mat-icon style="float:right">description</mat-icon>
+  </h1>
+</div>
+
+<div style="padding:.8rem">
+
+  <div>
+    <mat-form-field style="margin: 1rem;">
+      <mat-label>Nomenclatura</mat-label>
+      <input #nomInput matInput [(ngModel)]="nomenclature">
+    </mat-form-field>
+
+
+    <!--mat-form-field style="margin: 1rem;">
+    <mat-label>Mes Evaluacion</mat-label>
+    <mat-select [(ngModel)]="evalMonth">
+      <mat-option value="{{month}}" *ngFor="let month of months">{{month}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div-->
+
+    <mat-form-field style="margin: 1rem;">
+      <mat-label>Tipo Documento</mat-label>
+      <mat-select [(ngModel)]="docType" (selectionChange)="showSelection()">
+        <mat-option value="{{type?.typeId}}" *ngFor="let type of docTypes">{{type?.description}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field style="margin: 1rem;">
+    <mat-label>Fecha Alta</mat-label>
+    <input matInput [(ngModel)]="dateRegister" [disabled]="true">
+  </mat-form-field>
+
+  <mat-form-field style="margin: 1rem;">
+    <mat-label>Departamento del documento</mat-label>
+    <mat-select [(ngModel)]="docDepartment" (selectionChange)="onDepartSelection()">
+      <mat-option [value]="department?.departName"
+        *ngFor="let department of departments?.data">{{department?.departName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="light-dark-border rounded">
+    <mat-radio-group style="width: 40%;" [(ngModel)]="isTodosSelected"
+      title="selecciona un departamento para habilitar">
+      <mat-radio-button value="1" [disabled]="!docDepartment" (change)="selectAllOptions()">Todos los puestos del
+        departamento: {{docDepartment}}</mat-radio-button>
+    </mat-radio-group>
+
+    <div>
+
+      <mat-form-field style="margin: 1rem;">
+        <mat-label>Puesto a evaluar</mat-label>
+        <mat-select [(ngModel)]="userPosition" multiple (selectionChange)="showPositonSelected()">
+          <mat-option [value]="position" *ngFor="let position of positions?.data">
+            {{position?.posName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div style="display: flex; align-items: center; justify-content: center; margin: 1rem;">
+    <button mat-button class="bonoColor" (click)="sendUpdateDocument()">Actualizar documento</button>
+  </div>
+
+</div>
+

@@ -1,0 +1,25 @@
+<div style="padding: 1rem;">
+
+  <h1 class="bonoColor" >¿Deseas eliminar la actividad del documento?</h1>
+<div  class="rounded" style="border: 1px solid rgba(0, 0, 0, .2); margin-top: 1rem; padding: 1rem;">
+
+  <div>
+    <b>ID actividad: </b> {{documentData.activityId}}
+  </div>
+
+  <div>
+    <b>ID documento: </b> {{documentData.documentId}}
+  </div>
+
+  <div>
+    <b>Descripción: </b>  {{documentData.description}}
+  </div>
+</div>
+
+  <div style="margin-top: 1rem; display: flex; align-items: center; justify-content: center;">
+    <button mat-button style="border: 1px solid red;" (click)="eliminar(documentData)">Sí, eliminar</button>
+  </div>
+
+</div>
+
+

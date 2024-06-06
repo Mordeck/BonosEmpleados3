@@ -1,0 +1,19 @@
+<div>
+  <div class="bonoColor">
+    <h4 style="padding: 1rem;">Eliminando el documento</h4>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 45% 45%; padding: 1rem;">
+     <span>Document ID      </span><span>{{ documentData?.documentId }}   </span>
+     <span> Fecha registro  </span><span> {{documentData?.dateRegister}}  </span>
+     <span> Descripcion     </span><span> {{documentData?.description}}   </span>
+     <span> Departamento    </span><span> {{documentData?.docDepartment}} </span>
+     <span> Tipo documento  </span><span> {{documentData?.documentType}}  </span>
+     <span> Multiempleado   </span><span> {{documentData?.multiEmployee}} </span>
+     <span> Usario registro </span><span> {{documentData?.userRegister}}  </span>
+
+  </div>
+  <div style="display: grid; justify-content: center; margin-bottom: .5rem;">
+    <button mat-button (click)="sendDelete()">sí, eliminar</button>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div>
+  <h4 class="bonoColor" style="padding: 1rem;">Bono por ventas</h4>
+  <div style="padding: 1rem;">
+
+    <p> ¿Deseas agregar un bono por ventas a este documento? </p>
+    <div>Id: {{documentData?.documentId}}</div>
+
+    <div> Código:{{documentData?.nomenclature}}</div>
+    <div> Porcentaje de ventas:{{percent}}</div>
+  </div>
+  <div style="padding: 1rem; display: flex; justify-content: center;">
+    <button mat-button class="bonoColor" (click)="addSalesBono()">sí, agregar</button>
+  </div>
+</div>

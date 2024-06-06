@@ -1,0 +1,65 @@
+
+
+
+      <div >
+        <table mat-table  [dataSource]="activitiesDataSource" class="light-dark-border" [@fadeInOut] matSort>
+
+          <!--------------------  Actividad ID  ----------------------->
+          <ng-container matColumnDef="activityId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor" style="padding: 0;"> Actividad ID </th>
+            <td mat-cell *matCellDef="let element" > {{element.activityId}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor" style="padding: 0;"> Descripción
+            </th>
+            <td mat-cell *matCellDef="let element" colspan="" style> {{ element.description }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="owner">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor" style="padding: 0;"> Evaluador
+            </th>
+            <td mat-cell *matCellDef="let element"> {{ element.posName }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="positions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor" style="padding: 0;"> Puestos
+            </th>
+            <td mat-cell *matCellDef="let element" style="background-color: rgba(0, 0, 0, .2);"> <div class="light-dark-border" style="margin: .3rem; padding: .3rem; background-color: white;" *ngFor="let pos of element.applyToPos.split('-')">{{pos}}</div></td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor" style="padding: 0;"> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+
+              <div>
+                <button mat-button (click)="openEdithActForm(element)" class="editButton">
+                  <mat-icon>edith</mat-icon>
+                  Editar
+                </button>
+              </div>
+
+              <div>
+                <button mat-button (click)="openRemoveActForm(element)" class="delButton">
+                  <mat-icon>remove</mat-icon>
+                  Eliminar
+                </button>
+              </div>
+
+            </td>
+
+            <!------------ columna de prueba ------------->
+          </ng-container >
+
+
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat mat-row *matRowDef="let row; columns: displayedColumns;" class="hover-effect"
+          (click)="showCriterias(row)"></tr>
+
+
+        </table>
+
+      </div>
+      <mat-paginator class="bonoColor" [pageSize]="4"  [pageSizeOptions]="[1,2,3,4,5,10,20]" showFirstLastButtons></mat-paginator>

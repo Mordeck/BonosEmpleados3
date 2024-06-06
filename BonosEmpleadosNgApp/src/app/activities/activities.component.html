@@ -1,0 +1,165 @@
+<div style="display: grid; grid-template-columns: 50% 50%;">
+
+  <div style="overflow: auto; height: 90vh;">
+    <h2 class="bonoColor" style="padding: 1rem;">Actividades de evaluación: <small>{{documentData.nomenclature ||
+        'error' }}</small>
+      <mat-icon style="float: right;  color: rgb(255 204 8);
+      ">star</mat-icon>
+    </h2>
+
+    <div style="display: grid; grid-template-columns: 33.3% 33.3% 33.3%; color: white;">
+      <div class="headSubBono" style="padding-left: 1.2rem;padding-right: 1.2rem"> Departamento</div>
+      <div class="headSubBono" style="padding-left: 1.2rem;padding-right: 1.2rem"> Puesto a evaluar</div>
+      <div class="headSubBono" style="padding-left: 1.2rem;padding-right: 1.2rem"> Tipo documento</div>
+      <div class="subBonoColor" style="padding: 1.2rem; ">{{documentData.docDepartment}} </div>
+      <div class="subBonoColor" style="padding: 1.2rem; ">{{documentData.posName}} </div>
+      <div class="subBonoColor" style="padding: 1.2rem; ">{{documentData.description}} </div>
+    </div>
+
+    <!-- buscar -->
+    <mat-form-field style="padding: 1rem;" appearance="outline">
+      <input matInput placeholder="Buscar" [(ngModel)]="searchText" (input)="applyFilter()" />
+    </mat-form-field>
+
+
+    <div style="display: flex; justify-content: center;">
+      <div style="padding: 1px !important;">
+        <button mat-button class="border rounded bonoColor" style="margin-right: .3rem; margin-bottom: .3rem;"
+          (click)="openNewActForm(documentData)">Agregar actividad</button>
+        <button mat-button class="border rounded bonoColor" style="margin-right: .3rem; margin-bottom: .3rem;"
+          (click)="openNewCondForm(documentData)">Condicion</button>
+        <button mat-button class="border rounded bonoColor" style="margin-right: .3rem; margin-bottom: .3rem;"
+          (click)="openAditionalBonos(documentData)">Bonos adicionales</button>
+      </div>
+    </div>
+
+
+
+    <div *ngIf="activitiesDataSource.data.length != 0" style="padding: .5rem;" class="light-dark-border">
+      <table mat-table [dataSource]="activitiesDataSource" class="light-dark-border" [@fadeInOut] matSort>
+
+        <!--------------------  Actividad ID  ----------------------->
+        <ng-container matColumnDef="activityId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor" style="padding: 0;"> Actividad ID
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.activityId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor" style="padding: 0;"> Descripción
+          </th>
+          <td mat-cell *matCellDef="let element" colspan="" style> {{ element.description }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="owner">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor" style="padding: 0;"> Evaluador
+          </th>
+          <td mat-cell *matCellDef="let element"> {{ element.posName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="positions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor" style="padding: 0;"> Puestos
+          </th>
+          <td mat-cell *matCellDef="let element" style="background-color: rgba(0, 0, 0, .2);">
+            <div class="light-dark-border" style="margin: .3rem; padding: .3rem; background-color: white;"
+              *ngFor="let pos of element.applyToPos.split('-')">{{pos}}</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bonoColor" style="padding: 0;"> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+
+            <div>
+              <button class="light-dark-border" mat-button (click)="openEdithActForm(element)" class="editButton">
+                <mat-icon>edith</mat-icon>
+              </button>
+            </div>
+
+            <div>
+              <button class="light-dark-border" mat-button (click)="openRemoveActForm(element)" class="delButton">
+                <mat-icon>remove</mat-icon>
+              </button>
+            </div>
+
+          </td>
+
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat mat-row *matRowDef="let row; columns: displayedColumns;" class="hover-effect"
+          (click)="showCriterias(row)"></tr>
+
+      </table>
+
+    </div>
+
+    <mat-paginator class="bonoColor" [pageSize]="4" [pageSizeOptions]="[1,2,3,4,5,10,20]" showFirstLastButtons
+      *ngIf="activitiesDataSource.data.length != 0"></mat-paginator>
+
+    <hr style="margin: 1rem;">
+
+    <div style="display: grid; grid-template-columns: 50% 50%;"><!--area de formularios-->
+
+      <!------------------------------------------------------  ¿el documento debe solicitar ventas?    -------------------------------------------------------------->
+      <div id="vtasForm">
+        <div style="display: flex; justify-content: center; padding: 1rem;" class="buttonGray">Formulario para agregar ventas</div>
+        <div style="padding: .5rem;">
+          <div class="light-dark-border" style="padding: .5rem; display: flex; justify-content: center">
+            <!-- BONO VENTAS-->
+            <button mat-button class="border rounded buttonGray" style="margin-right: .3rem; margin-bottom: .3rem;"
+            (click)="openSalesBonos(documentData)">Agregar</button>
+            <mat-form-field appearance="outline">
+              <mat-label>Porcentaje</mat-label>
+              <input matInput type="number" placeholder="100%" [(ngModel)]="vtaPercent">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!------------------------------------------------------  ¿el documento debe solicitar gastos?    -------------------------------------------------------------->
+      <div id="gastosForm">
+        <div style="display: flex; justify-content: center; padding: 1rem;" class="buttonNinja">Formulario para gastos  </div>
+        <div style="padding: .5rem;">
+          <div class="light-dark-border" style="padding: .5rem; display: flex; justify-content: center;">
+            <!-- BONO Presupuesto-->
+            <button mat-button class="border rounded buttonNinja" style="margin-right: .3rem; margin-bottom: .3rem;"
+            (click)="openbudgetBonos(documentData)">Agregar</button>
+            <mat-form-field appearance="outline">
+              <mat-label>Porcentaje</mat-label>
+              <input matInput type="number" placeholder="100%" [(ngModel)]="budgetPercent">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!------------------------------------------------------  promedio minimo de autorizacion del bono    -------------------------------------------------------------->
+
+    </div><!--area de formularios-->
+
+    <div id="minim">
+      <div style="display: flex; justify-content: center; padding: 1rem;" class="buttonNinja">Promedio mínimo</div>
+
+      <div style="padding: .5rem;">
+        <div class="light-dark-border" style="padding: .5rem; display: flex; justify-content: center;">
+          <!-- BONO Presupuesto-->
+          <mat-form-field appearance="outline">
+            <mat-label>Promedio</mat-label>
+            <input matInput type="number" placeholder="8.5" [(ngModel)]="minAverage">
+          </mat-form-field>
+
+          <button mat-button class="border rounded buttonNinja" style="margin-right: .3rem; margin-bottom: .3rem; margin-left: .3rem;"
+          (click)="saveDocAverage(documentData)">Actualizar</button>
+
+          <span class="buttonNinja" style="padding: 1rem; margin-left: .5rem;">Promedio mínimo actual: {{currentMinimun}}</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-----------------------------------------   division  ---------------------------------------------------->
+
+
+  <app-criterias></app-criterias>
+
+</div>

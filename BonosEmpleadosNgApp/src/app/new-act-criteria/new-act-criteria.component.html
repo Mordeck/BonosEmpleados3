@@ -1,0 +1,61 @@
+<div style="padding: 1rem;">
+  <h1 class="bonoColor" style="padding: 1rem;">Agregando nuevo criterio</h1>
+
+  <div>
+    <mat-form-field style="width: 100%;">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput [(ngModel)]="description"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div style="display: grid; " [ngStyle]="{'grid-template-columns': criteriaType?.typeId == 1 ?  '70% 30%' : '100%' }">
+
+    <mat-form-field>
+      <mat-label>Tipo criterio</mat-label>
+      <mat-select matInput [(ngModel)]="criteriaType" (selectionChange)="showSelected()">
+        <mat-option [value]="type" *ngFor="let type of criteriaTypes">{{type.typeName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="criteriaType?.typeId==1" [@fadeInOut]>
+      <mat-label>Ponderación</mat-label>
+      <input matInput [(ngModel)]="weight" type="number" min="0" max="10" />
+    </mat-form-field>
+
+
+
+    <mat-form-field *ngIf="criteriaType?.typeId==3" [@fadeInOut]>
+        <mat-label >Selecciona un mes</mat-label>
+        <mat-select [(ngModel)]="firstDate">
+          <mat-option *ngFor="let month of months" [value]="month">
+            {{ month }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="criteriaType?.typeId==3" [@fadeInOut]>
+        <mat-label>Selecciona un mes</mat-label>
+        <mat-select [(ngModel)]="secondDate">
+          <mat-option *ngFor="let month of months" [value]="month">
+            {{ month }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <mat-form-field *ngIf="criteriaType?.typeId==3" [@fadeInOut]>
+      <mat-label>Ponderación</mat-label>
+      <input matInput [(ngModel)]="weight" type="number" min="0" max="10" />
+    </mat-form-field>
+
+
+</div>
+
+
+
+
+<div style="display: flex; align-items: center; justify-content: center;">
+
+  <button mat-button style="margin-top: 1rem;" (click)="guardarCriterio()">Guardar</button>
+</div>
+
+</div>

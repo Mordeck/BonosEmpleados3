@@ -1,0 +1,290 @@
+<div style="padding: 1rem;" [@fadeInOut] >
+  <div>
+    <div class="subBonoColor" *ngIf="userData.userType == 'evalu'">
+      <h3 class="light-dark-border bonoColor" style="padding: 1rem; display: flex; justify-content: center;">Documentos
+        donde&nbsp;<i style="font-size: large; color:rgb(63 95 71)">{{initialData?.position.posName}} </i>&nbsp;tiene actividades</h3>
+      <div style=" display: flex; justify-content: center; padding: .5rem;">
+        <table class="light-dark-border buttonNinja" style="padding: .4rem;">
+          <thead>
+            <tr style="border: 1px solid black">
+              <th>ID</th>
+              <th>Nomenclatura</th>
+              <th>Departamento</th>
+              <th>Número de actividades</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let doc of documents" style="border: 1px solid rgba(0, 0, 0, .2) !important;">
+              <td> {{doc.documentId}} </td>
+              <td> {{doc.nomenclature}} </td>
+              <td> {{doc?.docDepartment}} </td>
+              <td> {{doc.cantActivities}} </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subBonoColor" style="margin-top: 1rem;">
+
+      <div class="bonoColor light-dark-border">
+        <h4  style="padding: 1rem; display: flex; justify-content: center;">Consulta
+          evaluaciones
+          <i class="fas fa-circle-info" style="margin-left: 1rem; color: blueviolet;" matTooltip="consulta de evaluaciones pendientes"></i>
+        </h4>
+      </div>
+
+      <div class="light-dark-border" style="display: flex; justify-content: center;">
+
+        <mat-form-field matTooltip="Selecciona documento" style="margin: .5rem;">
+          <mat-label>Documento</mat-label>
+          <mat-select matInput [(ngModel)]="selectedDocId">
+            <mat-option [value]="document.documentId"
+              *ngFor="let document of documents">{{document.nomenclature}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field matTooltip="Selecciona mes" style="margin: .5rem;">
+          <mat-label>Mes</mat-label>
+          <mat-select matInput [(ngModel)]="selectedMonth">
+            <mat-option [value]="month.number" *ngFor="let month of months">{{month?.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field matTooltip="Número de empleado a consultar" style="margin: .5rem;">
+          <mat-label>Número de empleado</mat-label>
+          <input type="number" matInput [(ngModel)]="employeeId">
+        </mat-form-field>
+
+      </div>
+
+      <div style="display: flex; justify-content: center;">
+        <button class="light-dark-border buttonNinja" style="margin: .5rem;" mat-button
+          (click)="consultar()">Consultar</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="formDocumentStyle" *ngIf="evalFound" style=" background-color: rgba(255,255,255,.4); margin-top: .5rem;" [@fadeInOut]>
+
+    <div id="grid" style=" display: grid; grid-template-columns: 5% 20% 50% 20% 5%;" class="light-darker-border">
+
+      <!--- col 1 separation -->
+      <div></div>
+
+      <!--- col 2  -->
+      <div class="light-darker-border">
+        <div class="light-darker-border" style="display: flex; justify-content: center;">Departamento</div>
+        <div style="padding: 1rem; display: flex; justify-content: center;">{{ documentData?.docDepartment || 'Error department' }}</div>
+        <div class="light-darker-border" style="padding: .1rem; display: grid; grid-template-columns: 50% 50%;">
+          <span class="light-darker-border" style="padding: .1rem; display: flex; justify-content: center;">Mes a
+            evluar</span>
+          <span class="light-darker-border" style="padding: .1rem; display: flex; justify-content: center;">
+            {{docStruc?.monthToEvaluate.substring(0,7) || selectedMonth || 'Error in month'}} </span>
+        </div>
+      </div>
+
+      <!--- col 3  -->
+      <div style="display: flex; justify-content: center;">
+        <img src="../../assets/img/placencia-logo-gris-largo.png" alt="logo" width="50%" style="opacity: .6;">
+      </div>
+
+      <!--- col 4  -->
+      <div class="light-darker-border">
+        <div class="light-darker-border" style="display: grid; grid-template-columns: 50% 50%;">
+          <span class="light-darker-border" style="display: flex; justify-content: center;">Código</span>
+          <span class="light-darker-border"
+            style="display: flex; justify-content: center;">{{documentData?.nomenclature || 'Error en nomenclature'}}</span>
+        </div>
+      </div>
+
+      <!--- col 5 5 separation -->
+      <div></div>
+
+    </div> <!--end display grid-->
+
+    <div id="tipoBono" style="display: flex; justify-content: center; margin-top: .5rem;">
+      <span
+        style=" width: 30%; display: flex; justify-content: center; align-items: center; margin-left: 1rem; margin-right: 1rem;"
+        class="light-darker-border">
+        <h2><b>{{documentData.description || 'Error en tipo bono'}}</b></h2>
+      </span>
+    </div>
+
+    <div id="puesto" style="display: flex; justify-content: center; margin-top: .5rem;">
+      <span style=" width: 20%; display: flex; justify-content: center; margin-left: 1rem; margin-right: 1rem;"
+        class="light-darker-border">
+        <h3><b>{{ evaluatedUser?.posName || 'Error en puesto del evaluado' }}</b></h3>
+      </span>
+    </div>
+
+    <div id="nombreNumero" style="margin: .5rem;">
+      <div style="font-size: large; ">
+        <span style="margin-left: .5rem; padding: .5rem;" class="light-dark-border"><span>Nombre:</span>
+          {{ evaluatedUser?.name || 'Error in name'}}</span>
+        <span style="margin-left: .5rem; padding: .5rem;" class="light-dark-border"><span>No. Colaborador:</span>
+          {{evaluatedUser?.employeeID || 'Error in ID'}}</span>
+      </div>
+    </div>
+
+    <div>
+      <div style="padding: 1rem; font-size: larger; display: flex; justify-content: center;">
+        <h3>
+          <i class="fas fa-circle-info"></i>
+          {{docStruc?.activities == undefined ? 'Sin evaluaciones pendientes':'' }}
+        </h3>
+      </div>
+    </div>
+
+    <div id="divTabla" style="margin-top: 1rem;" *ngIf="docStruc?.activities != undefined">
+      <table style="font-size: large; border-collapse: collapse;" class="light-dark-border docTable">
+        <thead class="light-dark-border">
+          <tr style="background-color: black; color: rgba(255, 255, 255, 0.8);">
+            <th style="padding: .5rem;">#</th>
+            <th style="padding: .5rem;">Actividad a evaluar</th>
+            <th style="padding: .5rem;">Criterios</th>
+            <th style="padding: .5rem;">Calificación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let act of docStruc?.activities; let i = index" class="light-dark-border">
+            <td>{{i+1}}</td>
+            <td>{{act.description}}</td>
+            <td>
+              <span>
+
+                <app-criteria-view-eval [activity]="act" [criterios]="docStruc.activities[i].criterias" (sendMarks)="saveMarks($event)"/>
+
+                <!--
+                <mat-radio-group [attr.aria-label]="'group-' + act.activityId" [(ngModel)]="optionSelected[i]"
+                  (change)="modelChange( act.activityId, i , act.evalId )">
+                  <mat-radio-button
+                    [value]="{cId:criterio.criteriaId, actId:'', evalId: '', typeCriteria: criterio.typeCriteria, weighting: criterio.valor }"
+                    *ngFor="let criterio of docStruc.activities[i].criterias"> {{criterio.description}}:<span
+                      style="padding: .2rem;"
+                      [matTooltip]="'Ponderación del criterio: ' + criterio.valor">
+
+                    </span>
+                  </mat-radio-button>
+                </mat-radio-group>
+                -->
+              </span>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display: flex; justify-content: center; padding: 1rem;" *ngIf="evalFound.length>0">
+      <button [disabled]="dataSaved" class="light-dark-border" mat-button (click)="guardarEvaluacion()" style="color: whitesmoke;"
+        [ngStyle]="{'background-color': dataSaved ? 'gray' : 'chocolate' }">Guardar evaluación</button>
+    </div>
+
+    <!--------------------------  componente de ventas -------------------------------------------->
+    <app-sales-form></app-sales-form>
+
+    <!--------------------------  componente de gastos -------------------------------------------->
+    <app-expenses-form></app-expenses-form>
+
+
+    <!-----------------------------------------------------  BONOS ADICIONALES (basados en GASTOS/PRESUPUESTO)  --------------------------------------------------------->
+    <div *ngIf="bonoBud?.length > 0 && !bonoBud[0].error" class="light-dark-border" style="margin-top: 1rem; background-color: rgba(0, 0, 0, .1);">
+      <div *ngFor="let bono of bonoBud">
+        <h2 class="buttonGray" style="padding: 1rem;">Bonos adicionales (Presupuesto)</h2>
+        <div style="display: grid; grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;">
+          <div class="buttonGray" style="padding: .5rem;">ID</div>
+          <div class="buttonGray" style="padding: .5rem;">Descripción</div>
+          <div class="buttonGray" style="padding: .5rem;">
+            {{ bono.headerType == 'Ventas' ? 'Meta Venta Mensual' : 'Meta Gasto Mensual' }}
+          </div>
+          <div class="buttonGray" style="padding: .5rem;">
+            {{ bono.headerType == 'Ventas' ? 'Venta Mensual Logrado' : 'Gasto Mensual' }}
+          </div>
+          <div class="buttonGray" style="padding: .5rem;">Cumple</div>
+          <div class="buttonGray" style="padding: .5rem;">
+            {{ bono.headerType == 'Ventas' ? 'Meta Venta Accumulada': 'Meta Gasto Acumulado' }}
+          </div>
+          <div class="buttonGray" style="padding: .5rem;">
+            {{ bono.headerType == 'Ventas' ? 'Venta Accumulada Lograda': 'Gasto acumulado' }}
+          </div>
+          <div class="buttonGray" style="padding: .5rem;">Porcentaje (de ventas)</div>
+          <div class="buttonGray" style="padding: .5rem;">Importe <small>(venta * porcentaje)/100</small> </div>
+          <div class="buttonGray" style="padding: .5rem;">Autorización</div>
+          <div style="padding: .5rem;">{{ bono?.expensId }}</div>
+          <div style="padding: .5rem;">{{ bono?.description }}</div>
+          <div style="padding: .5rem;">{{ bono?.bMonthGoal }}</div>
+          <div style="padding: .5rem;">{{ bono?.bMonthAchieve }}</div>
+          <div  *ngIf="bono.headerType == 'Ventas'" style="padding: .5rem;" [ngClass]="{'cumple': bono?.bMonthAchieve >= bono?.bMonthGoal, 'noCumple': bono?.bMonthAchieve < bono?.bMonthGoal}" >{{ bono?.bMonthAchieve >= bono?.bMonthGoal ? 'Si cumple' : 'No cumple' }}</div>
+          <div  *ngIf="bono.headerType == 'Gastos'" style="padding: .5rem;" [ngClass]="{'cumple': bono?.bMonthAchieve < bono?.bMonthGoal, 'noCumple': bono?.bMonthAchieve >= bono?.bMonthGoal}" >{{ bono?.bMonthAchieve < bono?.bMonthGoal ? 'Si cumple' : 'No cumple' }}</div>
+          <div style="padding: .5rem;">{{ bono?.bAccumulatedGoal }}</div>
+          <div style="padding: .5rem;">{{ bono?.bAccumulatedAchieve }}</div>
+          <div style="padding: .5rem;">{{ bono?.percentage }}</div>
+          <div style="padding: .5rem;">{{ bono?.impcom }}</div>
+          <div style="padding: .5rem;">
+            <mat-radio-group aria-label="Autorización" [(ngModel)]="authBAbud">
+              <mat-radio-button value="si">Si</mat-radio-button>
+              <mat-radio-button value="no">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: center;" class="light-dark-border">
+        <button  mat-button style="background-color: chocolate; color: white; margin: .5rem;" class="light-dark-border">Guardar</button>
+      </div>
+    </div>
+
+
+    <!-----------------------------------------------------  BONOS ADICIONALES (basados en VENTAS)  --------------------------------------------------------->
+
+    <div *ngIf="bonoVta?.length >  0" id="aditionalsSales">
+
+      <h2 class="buttonking" style="padding: 1rem;">Bonos adicionales (Ventas)</h2>
+      <div *ngFor="let vta of bonoVta"
+        style="display: grid; grid-template-columns: 10% 10% 10% 12% 12% 12% 12% 10% 10%;">
+        <div><span class="buttonking" style="padding: .5rem;">Criterio: </span> <div style="padding: .5rem;"> {{vta.description}}</div> </div>
+        <div><span class="buttonking" style="padding: .5rem;">Venta Meta:</span>  <div style="padding: .5rem;">  {{monthGoal || 'N/A'}} </div></div>
+        <div><span class="buttonking" style="padding: .5rem;">Venta lograda:</span> <div style="padding: .5rem;">{{monthAchieve || 'N/A' }} </div></div>
+        <div><span class="buttonking" style="padding: .5rem;">Acumulado Meta:</span> <div style="padding: .5rem;">{{accumulatedGoal || 'N/A' }} </div></div>
+        <div><span class="buttonking" style="padding: .5rem;">Venta acumulada:</span> <div style="padding: .5rem;">{{accumulatedAchieve || 'N/A' }} </div></div>
+        <div><span class="buttonking" style="padding: .5rem;">Venta Mensual </span> <div style="padding: .5rem;">{{ vta != undefined ? vta?.monthAchieve >= vta?.monthGoal ? 'Lograda': 'No lograda' : 'N/A' }} </div></div>
+        <div><span class="buttonking" style="padding: .5rem;">Venta Acumulada</span> <div style="padding: .5rem;">{{ vta != undefined ? vta?.accumulatedAchieve >= vta?.accumulatedGoal ? 'Meta Lograda': 'Meta no alcanzada' : 'N/A'}} </div></div>
+        <div>
+          <div>
+            <span class="buttonking" style="padding: .5rem;">Autorizado</span>
+            <div>
+              <mat-radio-group aria-label="Autorización" [(ngModel)]="auth">
+                <mat-radio-button value="si">Si</mat-radio-button>
+                <mat-radio-button value="no">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+        <div ><span class="buttonking" style="padding: .5rem;">Importe</span> <span>  <div style="padding: .5rem;">{{vta.impcom}}</div> </span></div>
+      </div>
+      <div style="display: flex; justify-content: center;">
+        <button (click)="saveAdtionalBoonoData()" mat-button style="background-color: chocolate; color: white;" class="light-dark-border">Guardar</button>
+      </div>
+    </div>
+
+  </div><!-- ends document style -->
+</div>
+
+<!-- actualizador y visualizador de condiciones de documento -->
+<app-condition-viewer></app-condition-viewer>
+
+<!-- visualizador de bonos adicionales criterio simple-->
+<app-aditional-bono-view-csimple></app-aditional-bono-view-csimple>
+
+<!-- ventas y presupuestos-->
+<app-sales-and-budget></app-sales-and-budget>
+
+<!-- actualizador y visualizador de deducciones(descuentos) del documento -->
+<app-deductions-view></app-deductions-view>
+
+<!-- componente de autorización final -->
+<app-document-final-authorization></app-document-final-authorization>

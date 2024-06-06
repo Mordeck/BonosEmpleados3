@@ -1,0 +1,7 @@
+<div style="height: 100vh;" class="subtle rounded">
+  <adm-navbar [tabs]="tabs" [userData]="userData" (tabSelected)="tabSelectedListenner($event)"/>
+
+  <!----------------------    Contenedor dinamico de componentes   ----------------------->
+  <div #dynamicComponentContainer style="padding: .7rem;"></div>
+</div>
+

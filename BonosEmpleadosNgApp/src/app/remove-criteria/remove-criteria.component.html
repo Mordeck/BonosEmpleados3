@@ -1,0 +1,24 @@
+<div>
+  <div class="bonoColor" style="padding: 1rem;"><h3>Eliminando el criterio</h3></div>
+  <table>
+    <thead>
+      <tr>
+        <th class="bonoHead" style="color: rgba(0, 0, 0, .6) !important;">CriterioID</th>
+        <th class="bonoHead" style="color: rgba(0, 0, 0, .6) !important;">Descripción</th>
+        <th class="bonoHead" style="color: rgba(0, 0, 0, .6) !important;">Tipo de criterio</th>
+        <th class="bonoHead" style="color: rgba(0, 0, 0, .6) !important;">Ponderación</th>
+      </tr>
+    </thead>
+    <tbody>
+       <td>{{criteriaData.criteriaId}}</td>
+       <td>{{criteriaData.description}}</td>
+       <td>{{criteriaData.typeCriteria}}</td>
+       <td>{{criteriaData.weighting}}</td>
+    </tbody>
+  </table>
+
+
+  <div style="display: flex; justify-content: center; margin-top: .5rem; margin-bottom: .5rem;">
+    <button  mat-button class="bonoColor" style="padding: 1rem;" (click)="deleteCriteria()" >Sí, eliminar</button>
+  </div>
+</div>
