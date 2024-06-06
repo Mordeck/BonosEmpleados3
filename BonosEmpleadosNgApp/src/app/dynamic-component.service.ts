@@ -17,16 +17,20 @@ import { BonosAdminViewStyleDocComponent } from './bonos-adminView-style-doc/bon
 @Injectable({
   providedIn: 'root'
 })
-
+// clase modificada para el manejo de componentes en espacio dinamicos, como servicio
 export class DynamicComponentService {
 
   constructor() { }
 
   private dataSubject = new Subject<any>();
 
+  // guardamos datos al objeto llamando a esta funcion
+
   sendData(data: any) {
     this.dataSubject.next(data);
   }
+  //  para obtener la data inyectada dentro
+  // del componente dinamico
 
   getData() {
     return this.dataSubject.asObservable();
