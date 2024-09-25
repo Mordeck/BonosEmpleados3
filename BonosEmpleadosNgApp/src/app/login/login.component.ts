@@ -83,7 +83,9 @@ export class LoginComponent
 
           if (resp.status == "error")
           {
-            this._snackBar.open("Error al firmarse " + resp.message ,"Cerrar"  );
+            this._snackBar.open("Error al firmarse " + resp.message ,"Cerrar", {
+              duration: 5000
+            }  );
             this.loading = false;
 
           }
