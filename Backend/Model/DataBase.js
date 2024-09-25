@@ -2,10 +2,17 @@ const sqlServer = require('mssql');
 const bcrypt = require('bcryptjs');
 
 // Configuration for your SQL Server
+// const config = {
+//   user: 'wavNoi',
+//   password: '_M4sterWavNoi2017**',
+//   server: 'WDWGDLME5NZ91\\MASTER', // You can use 'localhost' if SQL Server is on your local machine
+//   database: 'BonosPlacencia',
+//   trustServerCertificate: true
+// };
 const config = {
-  user: 'wavNoi',
+  user: 'wavNoii',
   password: '_M4sterWavNoi2017**',
-  server: 'WDWGDLME5NZ91\\MASTER', // You can use 'localhost' if SQL Server is on your local machine
+  server: 'WDWGDLME5NZ91\\SQLEXPRESS01', // You can use 'localhost' if SQL Server is on your local machine
   database: 'BonosPlacencia',
   trustServerCertificate: true
 };
