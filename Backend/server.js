@@ -271,7 +271,7 @@ app.post('/updateUser', validToken, (req, res) => {
     pos = req.body.pos;
 
   } catch (e) {
-    console.log('no se pudó obtener los valores');
+    console.log('no se pudo obtener los valores');
     console.log(e);
   }
 
@@ -285,7 +285,7 @@ app.post('/updateUser', validToken, (req, res) => {
       }
 
       else {
-        res.send({ status: 'error', message: 'no se pudio actualzar el usuario' });
+        res.send({ status: 'error', message: 'no se pudo actualizar el usuario' });
       }
     })
       .catch((error) => {
@@ -306,7 +306,7 @@ app.delete('/user', validToken, (req, res) => {
   console.log("solicitante", req.usuario);
 
   if (req.usuario.type != "admin") {
-    res.send({ status: "error", message: "no cuentas con los prilegios" });
+    res.send({ status: "error", message: "no cuentas con los privilegios" });
     return;
   }
 
@@ -332,7 +332,7 @@ app.post('/NewUser', validToken, (req, res) => {
   console.log('\n------- NewUser -------');
   let respuesta;
   if (req.usuario.type != "admin")
-    res.send({ status: "error", message: "no cuentas con los prilegios" });
+    res.send({ status: "error", message: "no cuentas con los privilegios" });
 
   if (!req.body.pass) {
     res.send({ status: "error", message: "error en la petición falta la contraseña en el cuerpo", body: req.body });
@@ -805,7 +805,7 @@ function sendEvalDocuments(req, res)
                 }
                 else {
                   response.status = 'success'
-                  response.message = 'No se pudieron encontrar documentos donde este puesto tenga actividad, valida confuración'
+                  response.message = 'No se pudieron encontrar documentos donde este puesto tenga actividad, valida configuración'
                   res.send(response) 
                 }
               })
@@ -1345,7 +1345,7 @@ app.get('/criteriaTypes', validToken, (req, res) => {
     .then((result) => {
       if (result.rowsAffected) {
         const data = result.recordset;
-        res.send({ status: "success", message: "se encontrarons los tipos de criterios", data: data })
+        res.send({ status: "success", message: "se encontraron los tipos de criterios", data: data })
       }
     })
 })
@@ -1399,7 +1399,7 @@ app.post('/addBono', validToken, (req, res) => {
         console.log(result);
         if (result.rowsAffected[0] > 0 && result.rowsAffected[1] > 0) {
           res.send({ status: "success", message: "se ha agregado la información" });
-          console.log('Se actualizó correctamente');
+          console.log('Se actualizo correctamente');
         }
       })
 
