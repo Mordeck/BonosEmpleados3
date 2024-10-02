@@ -55,17 +55,18 @@ export class EdithUserFormComponent {
   updateUser()
   {
     console.log('actualizando el usuario');
-    console.log("Nombre", this.tempUserName );
-    console.log("Número", this.tempNumEmp );
-    console.log("Depart", this.userDepartment );
-    console.log("type",   this.typeSelected );
-    console.log('pass',   this.tempPass );
+    console.log("Nombre",   typeof this.tempUserName );
+    console.log("Número",   typeof this.tempNumEmp );
+    console.log("Depart",   typeof this.userDepartment );
+    console.log("position", typeof this.userPosition );
+    console.log("type",   typeof this.typeSelected );
+    console.log('pass',   typeof this.tempPass );
 
 
 
-    if (this.tempUserName  == '' || this.tempNumEmp == 0 || this.userDepartment == '' || this.typeSelected == '' || this.userPosition == '')
+    if (this.tempUserName  == '' || this.tempNumEmp == 0 || this.userDepartment == null || this.typeSelected == null || this.userPosition == null)
     {
-      this._snack.open('Por favor revisa los datos', 'Cerrar', { duration:5000 })
+      this._snack.open('Por favor revisa los datos', 'Cerrar', { duration:5000 });
       return;
     }
 
@@ -79,6 +80,7 @@ export class EdithUserFormComponent {
     {
 
       this._snack.open('Revisa la contraseña', 'Cerrar', { duration:5000 });
+      return;
     }
 
     const url = BACKSERVER + '/updateUser';
