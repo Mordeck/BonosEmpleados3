@@ -37,7 +37,7 @@ export class EvaluDashBoardComponent implements AfterViewInit , AfterViewChecked
 
   ngAfterViewInit(): void {
     this.dinCompServ.loadComponent('bonos', this.dinCompContainer);
-    this.cdr.detectChanges();
+    // this.cdr.detectChanges();
 
   }
 
