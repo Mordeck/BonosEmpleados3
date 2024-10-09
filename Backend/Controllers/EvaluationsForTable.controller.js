@@ -113,7 +113,7 @@ class EvaluationsForTable {
         EvaluationsForTable.databaseInstance.query(sql2)
             .then((result) => {
                 console.log("then")
-                console.log(result)
+                // console.log(result)
                 if (result.rowsAffected[0] > 0) {
                     console.log("se encontraron actividades para ese puesto");
                     const resp = {
@@ -137,6 +137,8 @@ class EvaluationsForTable {
     }
 
     static evaluationsEvalu() {
+
+        console.log('\n*********************************** /evaluaciones para evaluadores *************************');
 
             const sql = `SELECT * FROM Users where userName = '${EvaluationsForTable.req.usuario.userId}'`;
             console.log(sql);
